@@ -1,557 +1,441 @@
 
-Jump to content
-Toggle sidebar
-Wikipedia The Free Encyclopedia
 
-    Create account
+    support@favtutor.com Sign in Sign up
 
-Personal tools
+FavTutor
 
-Contents
-(Top)
-Advantages
+    Home
+    How It Works
+    Pricing
+    Compiler
+    Courses
+    Live Tutors
 
-Disadvantages
+5 Most used Sorting Algorithms in Java (with Code)
 
-Operations
+    Feb 04, 2021 9 Minute Read
 
-    Splaying
-    Join
-    Split
-    Insertion
-    Deletion
+5 Most used Sorting Algorithms in Java (with Code)
 
-Implementation and variants
+While getting into the world of programming, a good many problems will include working with multiple instances of similar types of data. Generally, these data will take the help of arrays for their storage. The bigger question is how to optimize the solution for a particular problem to fit within a particular amount of time? The generalized answer is arranging the elements within the array in such a way that an order is maintained. This is the process of sorting, used in many programming languages like Java. Here are the 5 most popular and most used sorting algorithms in java, along with time complexity. These are the best sorting methods in java currently in the industry.
+What is a Sorting Algorithm?
 
-Analysis
+Sorting is a class of algorithms that are tasked with rearranging the positions of elements of an array such that all of its elements are either in ascending or descending order. A good sorting algorithm also needs to ensure that elements having the same value don’t change their locations in the sorted array. Sorting is necessary for getting a concrete understanding of data structures and algorithms.
+5 Popular Sorting Algorithms in Java
 
-        Zig step
-        Zig-zig step
-        Zig-zag step
-        Weighted analysis
-    Performance theorems
-    Dynamic optimality conjecture
-    Variants
-    See also
-    Notes
-    References
-    External links
+Java is a flexible language in itself and supports the operation of a variety of sorting algorithms. Most of these algorithms are extremely flexible themselves and can be implemented with both a recursive as well as an iterative approach. Here are 5 most popular sorting algorithms in java:
 
-Splay tree
+    Merge Sort
+    Heap Sort
+    Insertion Sort
+    Selection Sort
+    Bubble Sort
 
-    Article
-    Talk
+Let’s learn about each of these java sorting algorithms in detail.
+1) Merge Sort
 
-    Read
-    Edit
-    View history
+Merge sort is one of the most flexible sorting algorithms in java known to mankind (yes, no kidding). It uses the divide and conquers strategy for sorting elements in an array. It is also a stable sort, meaning that it will not change the order of the original elements in an array concerning each other. The underlying strategy breaks up the array into multiple smaller segments till segments of only two elements (or one element) are obtained. Now, elements in these segments are sorted and the segments are merged to form larger segments. This process continues till the entire array is sorted.
 
-From Wikipedia, the free encyclopedia
-Splay tree
-Type	Tree
-Invented	1985
-Invented by	Daniel Dominic Sleator and Robert Endre Tarjan
-Complexities in big O notation
-Space complexity
-Space		O(n)
-Time complexity
-Function		Amortized	Worst Case
-Search		O(log n)[1]: 659 	O(n)[2]: 1 
-Insert		O(log n)[1]: 659 	O(n)
-Delete		O(log n)[1]: 659 	O(n)
+This algorithm has two main parts:
 
-A splay tree is a binary search tree with the additional property that recently accessed elements are quick to access again. Like self-balancing binary search trees, a splay tree performs basic operations such as insertion, look-up and removal in O(log n) amortized time. For random access patterns drawn from a non-uniform random distribution, their amortized time can be faster than logarithmic, proportional to the entropy of the access pattern. For many patterns of non-random operations, also, splay trees can take better than logarithmic time, without requiring advance knowledge of the pattern. According to the unproven dynamic optimality conjecture, their performance on all access patterns is within a constant factor of the best possible performance that could be achieved by any other self-adjusting binary search tree, even one selected to fit that pattern. The splay tree was invented by Daniel Sleator and Robert Tarjan in 1985.[1]
+    mergeSort() – This function calculates the middle index for the subarray and then partitions the subarray into two halves. The first half runs from index left to middle, while the second half runs from index middle+1 to right. After the partitioning is done, this function automatically calls the merge() function for sorting the subarray being handled by the mergeSort() call.
+    merge() – This function does the actual heavy lifting for the sorting process. It requires the input of four parameters – the array, the starting index (left), the middle index (middle), and the ending index (right). Once received, merge() will split the subarray into two subarrays – one left subarray and one right subarray. The left subarray runs from index left to middle, while the right subarray runs from index middle+1 to right. This function then merges the two subarrays to get the sorted subarray.
 
-All normal operations on a binary search tree are combined with one basic operation, called splaying. Splaying the tree for a certain element rearranges the tree so that the element is placed at the root of the tree. One way to do this with the basic search operation is to first perform a standard binary tree search for the element in question, and then use tree rotations in a specific fashion to bring the element to the top. Alternatively, a top-down algorithm can combine the search and the tree reorganization into a single phase.
-Advantages
+Merge Sort Java Code:
 
-Good performance for a splay tree depends on the fact that it is self-optimizing, in that frequently accessed nodes will move nearer to the root where they can be accessed more quickly. The worst-case height—though unlikely—is O(n), with the average being O(log n). Having frequently-used nodes near the root is an advantage for many practical applications (also see locality of reference), and is particularly useful for implementing caches and garbage collection algorithms.
 
-Advantages include:
 
-    Comparable performance: Average-case performance is as efficient as other trees.[3]
-    Small memory footprint: Splay trees do not need to store any bookkeeping data.
+class Sort
+{
+    void merge(int arr[], int left, int middle, int right)
+    {
+        int low = middle - left + 1;                    //size of the left subarray
+        int high = right - middle;                      //size of the right subarray
 
-Disadvantages
+        int L[] = new int[low];                             //create the left and right subarray
+        int R[] = new int[high];
 
-The most significant disadvantage of splay trees is that the height of a splay tree can be linear.[2]: 1  For example, this will be the case after accessing all n elements in non-decreasing order. Since the height of a tree corresponds to the worst-case access time, this means that the actual cost of a single operation can be high. However the amortized access cost of this worst case is logarithmic, O(log n). Also, the expected access cost can be reduced to O(log n) by using a randomized variant.[4]
+        int i = 0, j = 0;
 
-The representation of splay trees can change even when they are accessed in a 'read-only' manner (i.e. by find operations). This complicates the use of such splay trees in a multi-threaded environment. Specifically, extra management is needed if multiple threads are allowed to perform find operations concurrently. This also makes them unsuitable for general use in purely functional programming, although even there they can be used in limited ways to implement priority queues.
-
-Finally, when the access pattern is random, the additional splaying overhead adds a significant constant factor to the cost compared to less-dynamic alternatives.
-Operations
-Splaying
-
-When a node x is accessed, a splay operation is performed on x to move it to the root. To perform a splay operation we carry out a sequence of splay steps, each of which moves x closer to the root. By performing a splay operation on the node of interest after every access, the recently accessed nodes are kept near the root and the tree remains roughly balanced, so that we achieve the desired amortized time bounds.
-
-Each particular step depends on three factors:
-
-    Whether x is the left or right child of its parent node, p,
-    whether p is the root or not, and if not
-    whether p is the left or right child of its parent, g (the grandparent of x).
-
-It is important to remember to set gg (the great-grandparent of x) to now point to x after any splay operation. If gg is null, then x obviously is now the root and must be updated as such.
-
-There are three types of splay steps, each of which has two symmetric variants: left- and right-handed. For the sake of brevity, only one of these two is shown for each type. (In the following diagrams, circles indicate nodes of interest and triangles indicate sub-trees of arbitrary size.) The three types of splay steps are:
-
-Zig step: this step is done when p is the root. The tree is rotated on the edge between x and p. Zig steps exist to deal with the parity issue, will be done only as the last step in a splay operation, and only when x has odd depth at the beginning of the operation.
-Splay tree zig.svg
-
-Zig-zig step: this step is done when p is not the root and x and p are either both right children or are both left children. The picture below shows the case where x and p are both left children. The tree is rotated on the edge joining p with its parent g, then rotated on the edge joining x with p. Note that zig-zig steps are the only thing that differentiate splay trees from the rotate to root method introduced by Allen and Munro[5] prior to the introduction of splay trees.
-Zigzig.gif
-
-Zig-zag step: this step is done when p is not the root and x is a right child and p is a left child or vice versa (x is left, p is right). The tree is rotated on the edge between p and x, and then rotated on the resulting edge between x and g.
-Zigzag.gif
-Join
-
-Given two trees S and T such that all elements of S are smaller than the elements of T, the following steps can be used to join them to a single tree:
-
-    Splay the largest item in S. Now this item is in the root of S and has a null right child.
-    Set the right child of the new root to T.
-
-Split
-
-Given a tree and an element x, return two new trees: one containing all elements less than or equal to x and the other containing all elements greater than x. This can be done in the following way:
-
-    Splay x. Now it is in the root so the tree to its left contains all elements smaller than x and the tree to its right contains all element larger than x.
-    Split the right subtree from the rest of the tree.
-
-Insertion
-
-To insert a value x into a splay tree:
-
-    Insert x as with a normal binary search tree.
-    when an item is inserted, a splay is performed.
-    As a result, the newly inserted node x becomes the root of the tree.
-
-Alternatively:
-
-    Use the split operation to split the tree at the value of x to two sub-trees: S and T.
-    Create a new tree in which x is the root, S is its left sub-tree and T its right sub-tree.
-
-Deletion
-
-To delete a node x, use the same method as with a binary search tree:
-
-    If x has two children:
-        Swap its value with that of either the rightmost node of its left sub tree (its in-order predecessor) or the leftmost node of its right subtree (its in-order successor).
-        Remove that node instead.
-
-In this way, deletion is reduced to the problem of removing a node with 0 or 1 children. Unlike a binary search tree, in a splay tree after deletion, we splay the parent of the removed node to the top of the tree.
-
-Alternatively:
-
-    The node to be deleted is first splayed, i.e. brought to the root of the tree and then deleted. leaves the tree with two sub trees.
-    The two sub-trees are then joined using a "join" operation.
-
-Implementation and variants
-
-Splaying, as mentioned above, is performed during a second, bottom-up pass over the access path of a node. It is possible to record the access path during the first pass for use during the second, but that requires extra space during the access operation. Another alternative is to keep a parent pointer in every node, which avoids the need for extra space during access operations but may reduce overall time efficiency because of the need to update those pointers.[1]
-
-Another method which can be used is based on the argument that we can restructure the tree on our way down the access path instead of making a second pass. This top-down splaying routine uses three sets of nodes – left tree, right tree and middle tree. The first two contain all items of original tree known to be less than or greater than current item respectively. The middle tree consists of the sub-tree rooted at the current node. These three sets are updated down the access path while keeping the splay operations in check. Another method, semisplaying, modifies the zig-zig case to reduce the amount of restructuring done in all operations.[1][6]
-
-Below there is an implementation of splay trees in C++, which uses pointers to represent each node on the tree. This implementation is based on bottom-up splaying version and uses the second method of deletion on a splay tree. Also, unlike the above definition, this C++ version does not splay the tree on finds – it only splays on insertions and deletions, and the find operation, therefore, has linear time complexity.
-
-#include <functional>
-
-#ifndef SPLAY_TREE
-#define SPLAY_TREE
-
-template<typename T, typename Comp = std::less<T>>
-class splay_tree {
-private:
-  Comp comp;
-  unsigned long p_size;
-
-  struct node {
-    node *left, *right;
-    node *parent;
-    T key;
-    node(const T& init = T()) : left(nullptr), right(nullptr), parent(nullptr), key(init) { }
-    ~node() {
-
-    }
-  } *root;
-
-  void left_rotate(node *x) {
-    node *y = x->right;
-    if (y) {
-      x->right = y->left;
-      if (y->left) y->left->parent = x;
-      y->parent = x->parent;
-    }
-
-    if (!x->parent) root = y;
-    else if (x == x->parent->left) x->parent->left = y;
-    else x->parent->right = y;
-    if (y) y->left = x;
-    x->parent = y;
-  }
-
-  void right_rotate(node *x) {
-    node *y = x->left;
-    if (y) {
-      x->left = y->right;
-      if (y->right) y->right->parent = x;
-      y->parent = x->parent;
-    }
-    if (!x->parent) root = y;
-    else if (x == x->parent->left) x->parent->left = y;
-    else x->parent->right = y;
-    if (y) y->right = x;
-    x->parent = y;
-  }
-
-  void splay(node *x) {
-    while (x->parent) {
-      if (!x->parent->parent) {
-        if (x->parent->left == x) right_rotate(x->parent);
-        else left_rotate(x->parent);
-      } else if (x->parent->left == x && x->parent->parent->left == x->parent) {
-        right_rotate(x->parent->parent);
-        right_rotate(x->parent);
-      } else if (x->parent->right == x && x->parent->parent->right == x->parent) {
-        left_rotate(x->parent->parent);
-        left_rotate(x->parent);
-      } else if (x->parent->left == x && x->parent->parent->right == x->parent) {
-        right_rotate(x->parent);
-        left_rotate(x->parent);
-      } else {
-        left_rotate(x->parent);
-        right_rotate(x->parent);
-      }
-    }
-  }
-
-  void replace(node *u, node *v) {
-    if (!u->parent) root = v;
-    else if (u == u->parent->left) u->parent->left = v;
-    else u->parent->right = v;
-    if (v) v->parent = u->parent;
-  }
-
-  node* subtree_minimum(node *u) {
-    while (u->left) u = u->left;
-    return u;
-  }
-
-  node* subtree_maximum(node *u) {
-    while (u->right) u = u->right;
-    return u;
-  }
-public:
-  splay_tree() : root(nullptr), p_size(0) { }
-
-  void insert(const T &key) {
-    node *z = root;
-    node *p = nullptr;
-
-    while (z) {
-      p = z;
-      if (comp(z->key, key)) z = z->right;
-      else z = z->left;
-    }
-
-    z = new node(key);
-    z->parent = p;
-
-    if (!p) root = z;
-    else if (comp(p->key, z->key)) p->right = z;
-    else p->left = z;
-
-    splay(z);
-    p_size++;
-  }
-
-  node* find(const T &key) {
-    node *z = root;
-    while (z) {
-      if (comp(z->key, key)) z = z->right;
-      else if (comp(key, z->key)) z = z->left;
-      else return z;
-    }
-    return nullptr;
-  }
-
-  void erase(const T &key) {
-    node *z = find(key);
-    if (!z) return;
-
-    splay(z);
-
-    if (!z->left) replace(z, z->right);
-    else if (!z->right) replace(z, z->left);
-    else {
-      node *y = subtree_minimum(z->right);
-      if (y->parent != z) {
-        replace(y, y->right);
-        y->right = z->right;
-        y->right->parent = y;
-      }
-      replace(z, y);
-      y->left = z->left;
-      y->left->parent = y;
-    }
-
-    delete z;
-    p_size--;
-  }
-
-/* //the alternative implementation
-    void erase(const T &key) {
-        node *z = find(key);
-        if (!z) return;
-
-        splay(z);
-
-        node *s = z->left;
-        node *t = z->right;
-        delete z;
-
-        node *sMax = NULL;
-        if (s) {
-            s->parent = NULL;
-            sMax = subtree_maximum(s);
-            splay(sMax);
-            root = sMax;
+        for (i = 0; i < low; i++)                               //copy elements into left subarray
+        {
+            L[i] = arr[left + i];
         }
-        if (t) {
-            if (s)
-                sMax->right = t;
+        for (j = 0; j < high; j++)                              //copy elements into right subarray
+        {
+            R[j] = arr[middle + 1 + j];
+        }
+
+
+        int k = left;                                           //get starting index for sort
+        i = 0;                                             //reset loop variables before performing merge
+        j = 0;
+
+        while (i < low && j < high)                     //merge the left and right subarrays
+        {
+            if (L[i] <= R[j])
+            {
+                arr[k] = L[i];
+                i++;
+            }
             else
-                root = t;
-            t->parent = sMax;
+            {
+                arr[k] = R[j];
+                j++;
+            }
+            k++;
         }
 
-        p_size--;
+        while (i < low)                             //merge the remaining elements from the left subarray
+        {
+            arr[k] = L[i];
+            i++;
+            k++;
+        }
+
+        while (j < high)                           //merge the remaining elements from right subarray
+        {
+            arr[k] = R[j];
+            j++;
+            k++;
+        }
     }
-*/
 
-  const T& minimum() { return subtree_minimum(root)->key; }
-  const T& maximum() { return subtree_maximum(root)->key; }
 
-  bool empty() const { return root == nullptr; }
-  unsigned long size() const { return p_size; }
-};
+    void mergeSort(int arr[], int left, int right)       //helper function that creates the sub cases for sorting
+    {
+        int middle;
+        if (left < right) {                             //sort only if the left index is lesser than the right index (meaning that sorting is done)
+            middle = (left + right) / 2;
+
+            mergeSort(arr, left, middle);                    //left subarray
+            mergeSort(arr, middle + 1, right);               //right subarray
+
+            merge(arr, left, middle, right);                //merge the two subarrays
+        }
+    }
+
+    void display(int arr[])                 //display the array
+    {
+        for (int i=0; i<arr.length; ++i)
+        {
+            System.out.print(arr[i]+" ");
+        }
+    }
 
-#endif // SPLAY_TREE
+    public static void main(String args[])
+    {
+        int arr[] = { 9, 3, 1, 5, 13, 12 };
+        Sort ob = new Sort();
+        ob.mergeSort(arr, 0, arr.length - 1);
+        ob.display(arr);
+    }
+}
 
-Analysis
 
-A simple amortized analysis of static splay trees can be carried out using the potential method. Define:
 
-    size(r) = the number of nodes in the sub-tree rooted at node r (including r).
-    rank(r) = log2(size(r)).
-    Φ = the sum of the ranks of all the nodes in the tree.
+Explanation of how it works
 
-Φ will tend to be high for poorly balanced trees and low for well-balanced trees.
+merge sort explanation
+2) Heap Sort
 
-To apply the potential method, we first calculate ΔΦ: the change in the potential caused by a splay operation. We check each case separately. Denote by rank' the rank function after the operation. x, p and g are the nodes affected by the rotation operation (see figures above).
-Zig step
+Heap sort is one of the most important sorting methods in java that one needs to learn to get into sorting. It combines the concepts of a tree as well as sorting, properly reinforcing the use of concepts from both. A heap is a complete binary search tree where items are stored in a special order depending on the requirement. A min-heap contains the minimum element at the root, and every child of the root must be greater than the root itself. The children at the level after that must be greater than these children, and so on. Similarly, a max-heap contains the maximum element at the root. For the sorting process, the heap is stored as an array where for every parent node at the index i, the left child is at index 2 * i + 1, and the right child is at index 2 * i + 2.
 
-    ΔΦ 	= rank'(p) − rank(p) + rank'(x) − rank(x)   	[since only p and x change ranks]
-    	= rank'(p) − rank(x) 	[since rank'(x)=rank(p)]
-    	≤ rank'(x) − rank(x) 	[since rank'(p)<rank'(x)]
+A max heap is built with the elements of the unsorted array, and then the maximum element is extracted from the root of the array and then exchanged with the last element of the array. Once done, the max heap is rebuilt for getting the next maximum element. This process continues till there is only one node present in the heap.
 
-Zig-zig step
+This algorithm has two main parts:-
 
-    ΔΦ 	= rank'(g) − rank(g) + rank'(p) − rank(p) + rank'(x) − rank(x)
-    	= rank'(g) + rank'(p) − rank(p) − rank(x)   	[since rank'(x)=rank(g)]
-    	≤ rank'(g) + rank'(x) − 2 rank(x) 	[since rank(x)<rank(p) and rank'(x)>rank'(p)]
-    	≤ 3(rank'(x)−rank(x)) − 2 	[due to the concavity of the log function]
+    heapSort() – This function helps construct the max heap initially for use. Once done, every root element is extracted and sent to the end of the array. Once done, the max heap is reconstructed from the root. The root is again extracted and sent to the end of the array, and hence the process continues.
+    heapify() – This function is the building block of the heap sort algorithm. This function determines the maximum from the element being examined as the root and its two children. If the maximum is among the children of the root, the root and its child are swapped. This process is then repeated for the new root. When the maximum element in the array is found (such that its children are smaller than it) the function stops. For the node at index i, the left child is at index 2 * i + 1, and the right child is at index 2 * i + 1. (indexing in an array starts from 0, so the root is at 0).
 
-Zig-zag step
+Heap Sort Java Code:
 
-    ΔΦ 	= rank'(g) − rank(g) + rank'(p) − rank(p) + rank'(x) − rank(x)
-    	≤ rank'(g) + rank'(p) − 2 rank(x)   	[since rank'(x)=rank(g) and rank(x)<rank(p)]
-    	≤ 3(rank'(x)−rank(x)) − 2 	[due to the concavity of the log function]
 
-The amortized cost of any operation is ΔΦ plus the actual cost. The actual cost of any zig-zig or zig-zag operation is 2 since there are two rotations to make. Hence:
 
-    amortized-cost 	= cost + ΔΦ
-    	≤ 3(rank'(x)−rank(x))
+class Sort {
+    public void heapSort(int arr[])
+    {
+        int temp;
 
-When summed over the entire splay operation, this telescopes to 3(rank(root)−rank(x)) which is O(log n). The Zig operation adds an amortized cost of 1, but there's at most one such operation.
+        for (int i = arr.length / 2 - 1; i >= 0; i--)                //build the heap
+        {
+            heapify(arr, arr.length, i);
+        }
 
-So now we know that the total amortized time for a sequence of m operations is:
+        for (int i = arr.length - 1; i > 0; i--)                            //extract elements from the heap
+        {
+            temp = arr[0];                                                  //move current root to end (since it is the largest)
+            arr[0] = arr[i];
+            arr[i] = temp;
+            heapify(arr, i, 0);                                             //recall heapify to rebuild heap for the remaining elements
+        }
+    }
 
-    T a m o r t i z e d ( m ) = O ( m log ⁡ n ) T_{{\mathrm {amortized}}}(m)=O(m\log n)
+    void heapify(int arr[], int n, int i)
+    {
+        int MAX = i; // Initialize largest as root
+        int left = 2 * i + 1; //index of the left child of ith node = 2*i + 1
+        int right = 2 * i + 2; //index of the right child of ith node  = 2*i + 2
+        int temp;
 
-To go from the amortized time to the actual time, we must add the decrease in potential from the initial state before any operation is done (Φi) to the final state after all operations are completed (Φf).
+        if (left < n && arr[left] > arr[MAX])            //check if the left child of the root is larger than the root
+        {
+            MAX = left;
+        }
 
-    Φ i − Φ f = ∑ x r a n k i ( x ) − r a n k f ( x ) = O ( n log ⁡ n ) \Phi _{i}-\Phi _{f}=\sum _{x}{{\mathrm {rank}}_{i}(x)-{\mathrm {rank}}_{f}(x)}=O(n\log n)
+        if (right < n && arr[right] > arr[MAX])            //check if the right child of the root is larger than the root
+        {
+            MAX = right;
+        }
 
-where the last inequality comes from the fact that for every node x, the minimum rank is 0 and the maximum rank is log(n).
+        if (MAX != i)
+        {                                               //repeat the procedure for finding the largest element in the heap
+            temp = arr[i];
+            arr[i] = arr[MAX];
+            arr[MAX] = temp;
+            heapify(arr, n, MAX);
+        }
+    }
 
-Now we can finally bound the actual time:
+    void display(int arr[])                 //display the array
+    {
+        for (int i=0; i<arr.length; ++i)
+        {
+            System.out.print(arr[i]+" ");
+        }
+    }
 
-    T a c t u a l ( m ) = O ( m log ⁡ n + n log ⁡ n ) T_{{\mathrm {actual}}}(m)=O(m\log n+n\log n)
+    public static void main(String args[])
+    {
+        int arr[] = { 1, 12, 9 , 3, 10, 15 };
 
-Weighted analysis
+        Sort ob = new Sort();
+        ob.heapSort(arr);
+        ob.display(arr);
+    }
+}
 
-The above analysis can be generalized in the following way.
 
-    Assign to each node r a weight w(r).
-    Define size(r) = the sum of weights of nodes in the sub-tree rooted at node r (including r).
-    Define rank(r) and Φ exactly as above.
 
-The same analysis applies and the amortized cost of a splaying operation is again:
+Explanation of how it works:
 
-    r a n k ( r o o t ) − r a n k ( x ) = O ( log ⁡ W − log ⁡ w ( x ) ) = O ( log ⁡ W w ( x ) ) {\displaystyle \mathrm {rank} (root)-\mathrm {rank} (x)=O(\log {W}-\log {w(x)})=O\left(\log {\frac {W}{w(x)}}\right)}
+heap sort explanation java
+3) Insertion Sort
 
-where W is the sum of all weights.
+If you’re quite done with more complex sorting algorithms and want to move on to something simpler: insertion sort is the way to go. While it isn’t a much-optimized algorithm for sorting an array, it is one of the more easily understood ones. Implementation is pretty easy too. In insertion sort, one picks up an element and considers it to be the key. If the key is smaller than its predecessor, it is shifted to its correct location in the array.
 
-The decrease from the initial to the final potential is bounded by:
+Algorithm:
 
-    Φ i − Φ f ≤ ∑ x ∈ t r e e log ⁡ W w ( x ) \Phi _{i}-\Phi _{f}\leq \sum _{{x\in tree}}{\log {{\frac {W}{w(x)}}}}
+    START
+    Repeat steps 2 to 4 till the array end is reached.
+    Compare the element at current index i with its predecessor. If it is smaller, repeat step 3.
+    Keep shifting elements from the “sorted” section of the array till the correct location of the key is found.
+    Increment loop variable.
+    END
 
-since the maximum size of any single node is W and the minimum is w(x).
+Insertion Sort Java Code:
 
-Hence the actual time is bounded by:
 
-    O ( ∑ x ∈ s e q u e n c e log ⁡ W w ( x ) + ∑ x ∈ t r e e log ⁡ W w ( x ) ) {\displaystyle O\left(\sum _{x\in sequence}{\log {\frac {W}{w(x)}}}+\sum _{x\in tree}{\log {\frac {W}{w(x)}}}\right)}
 
-Performance theorems
+class Sort
+{
+    static void insertionSort(int arr[], int n)
+    {
+        if (n <= 1)                             //passes are done
+        {
+            return;
+        }
 
-There are several theorems and conjectures regarding the worst-case runtime for performing a sequence S of m accesses in a splay tree containing n elements.
+        insertionSort( arr, n-1 );        //one element sorted, sort the remaining array
 
-Balance Theorem — The cost of performing the sequence S is O [ m log ⁡ n + n log ⁡ n ] O\left[m\log n+n\log n\right].
-Proof
+        int last = arr[n-1];                        //last element of the array
+        int j = n-2;                                //correct index of last element of the array
 
-Take a constant weight, e.g. w ( x ) = 1 w(x)=1 for every node x. Then W = n {\displaystyle W=n}.
+        while (j >= 0 && arr[j] > last)                 //find the correct index of the last element
+        {
+            arr[j+1] = arr[j];                          //shift section of sorted elements upwards by one element if correct index isn't found
+            j--;
+        }
+        arr[j+1] = last;                            //set the last element at its correct index
+    }
 
-This theorem implies that splay trees perform as well as static balanced binary search trees on sequences of at least n accesses.[1]
+    void display(int arr[])                 //display the array
+    {
+        for (int i=0; i<arr.length; ++i)
+        {
+            System.out.print(arr[i]+" ");
+        }
+    }
 
-Static Optimality Theorem — Let q x q_{x} be the number of times element x is accessed in S. If every element is accessed at least once, then the cost of performing S is O [ m + ∑ x ∈ t r e e q x log ⁡ m q x ] O\left[m+\sum _{{x\in tree}}q_{x}\log {\frac {m}{q_{x}}}\right]
-Proof
 
-Let w ( x ) = q x w(x)=q_{x}. Then W = m W=m.
+    public static void main(String[] args)
+    {
+        int arr[] = {22, 21, 11, 15, 16};
 
-This theorem implies that splay trees perform as well as an optimum static binary search tree on sequences of at least n accesses.[7] They spend less time on the more frequent items.[1] Another way of stating the same result is that, on input sequences where the items are drawn independently at random from a non-uniform probability distribution on n items, the amortized expected (average case) cost of each access is proportional to the entropy of the distribution.[8]
+        insertionSort(arr, arr.length);
+        Sort ob = new Sort();
+        ob.display(arr);
+    }
+}
 
-Static Finger Theorem — Assume that the items are numbered from 1 through n in ascending order. Let f be any fixed element (the 'finger'). Then the cost of performing S is O [ m + n log ⁡ n + ∑ x ∈ s e q u e n c e log ⁡ ( | x − f | + 1 ) ] O\left[m+n\log n+\sum _{{x\in sequence}}\log(|x-f|+1)\right].
-Proof
 
-Let w ( x ) = 1 / ( | x − f | + 1 ) 2 w(x)=1/(|x-f|+1)^{2}. Then W = O ( 1 ) {\displaystyle W=O(1)}. The net potential drop is O (n log n) since the weight of any item is at least 1 / n 2 1/n^{2}.[1]
 
-Dynamic Finger Theorem — Assume that the 'finger' for each step accessing an element y is the element accessed in the previous step, x. The cost of performing S is O [ m + n + ∑ x , y ∈ s e q u e n c e m log ⁡ ( | y − x | + 1 ) ] O\left[m+n+\sum _{{x,y\in sequence}}^{m}\log(|y-x|+1)\right].[9][10]
+Explanation of how it works:
 
-Working Set Theorem — At any time during the sequence, let t ( x ) t(x) be the number of distinct elements accessed before the previous time element x was accessed. The cost of performing S is O [ m + n log ⁡ n + ∑ x ∈ s e q u e n c e log ⁡ ( t ( x ) + 1 ) ] O\left[m+n\log n+\sum _{{x\in sequence}}\log(t(x)+1)\right]
-Proof
+insertion sort explanation
+4) Selection Sort
 
-Let w ( x ) = 1 / ( t ( x ) + 1 ) 2 w(x)=1/(t(x)+1)^{2}. Note that here the weights change during the sequence. However, the sequence of weights is still a permutation of 1 , 1 4 , 1 9 , ⋯ , 1 n 2 {\displaystyle 1,{\tfrac {1}{4}},{\tfrac {1}{9}},\cdots ,{\tfrac {1}{n^{2}}}}. So as before W = O ( 1 ) {\displaystyle W=O(1)}. The net potential drop is O (n log n).
+Quadratic sorting algorithms are some of the more popular sorting algorithms that are easy to understand and implement. These don’t offer a unique or optimized approach for sorting the array - rather they should offer building blocks for the concept of sorting itself for someone new to it. In selection sort, two loops are used. The inner loop one picks the minimum element from the array and shifts it to its correct index indicated by the outer loop. In every run of the outer loop, one element is shifted to its correct location in the array. It is a very popular sorting algorithm in python as well.
 
-This theorem is equivalent to splay trees having key-independent optimality.[1]
+Algorithm:
 
-Scanning Theorem — Also known as the Sequential Access Theorem or the Queue theorem. Accessing the n elements of a splay tree in symmetric order takes O(n) time, regardless of the initial structure of the splay tree.[11] The tightest upper bound proven so far is 4.5 n 4.5n.[12]
-Dynamic optimality conjecture
-Main article: Optimal binary search tree
-Unsolved problem in computer science:
+    START
+    Run two loops: an inner loop and an outer loop.
+    Repeat steps till the minimum element are found.
+    Mark the element marked by the outer loop variable as a minimum.
+    If the current element in the inner loop is smaller than the marked minimum element, change the value of the minimum element to the current element.
+    Swap the value of the minimum element with the element marked by the outer loop variable.
+    END
 
-Do splay trees perform as well as any other binary search tree algorithm?
-(more unsolved problems in computer science)
+Selection Sort Java Code:
+
+
+
+class Sort
+{
+    void selectionSort(int arr[])
+    {
+        int pos;
+        int temp;
+        for (int i = 0; i < arr.length; i++)
+        {
+            pos = i;
+            for (int j = i+1; j < arr.length; j++)
+           {
+                if (arr[j] < arr[pos])                  //find the index of the minimum element
+                {
+                    pos = j;
+                }
+            }
 
-In addition to the proven performance guarantees for splay trees there is an unproven conjecture of great interest from the original Sleator and Tarjan paper. This conjecture is known as the dynamic optimality conjecture and it basically claims that splay trees perform as well as any other binary search tree algorithm up to a constant factor.
+            temp = arr[pos];            //swap the current element with the minimum element
+            arr[pos] = arr[i];
+            arr[i] = temp;
+        }
+    }
 
-    Dynamic Optimality Conjecture:[1] Let A A be any binary search tree algorithm that accesses an element x x by traversing the path from the root to x x at a cost of d ( x ) + 1 d(x)+1, and that between accesses can make any rotations in the tree at a cost of 1 per rotation. Let A ( S ) A(S) be the cost for A A to perform the sequence S S of accesses. Then the cost for a splay tree to perform the same accesses is O [ n + A ( S ) ] O[n + A(S)].
+    void display(int arr[])                     //display the array
+    {
+        for (int i=0; i<arr.length; i++)
+        {
+            System.out.print(arr[i]+" ");
+        }
+    }
 
-There are several corollaries of the dynamic optimality conjecture that remain unproven:
+    public static void main(String args[])
+    {
+        Sort ob = new Sort();
+        int arr[] = {64,25,12,22,11};
+        ob.selectionSort(arr);
+        ob.display(arr);
+    }
+}
 
-    Traversal Conjecture:[1] Let T 1 T_{1} and T 2 T_{2} be two splay trees containing the same elements. Let S S be the sequence obtained by visiting the elements in T 2 T_{2} in preorder (i.e., depth first search order). The total cost of performing the sequence S S of accesses on T 1 T_{1} is O ( n ) O(n).
 
-    Deque Conjecture:[11][13][14] Let S S be a sequence of m m double-ended queue operations (push, pop, inject, eject). Then the cost of performing S S on a splay tree is O ( m + n ) O(m + n).
 
-    Split Conjecture:[6] Let S S be any permutation of the elements of the splay tree. Then the cost of deleting the elements in the order S S is O ( n ) O(n).
+Explanation of how it works:
 
-Variants
+selection sort explanation in java
+5) Bubble Sort
 
-In order to reduce the number of restructuring operations, it is possible to replace the splaying with semi-splaying, in which an element is splayed only halfway towards the root.[1][2]
+The two algorithms that most beginners start their sorting career with would be bubble sort and selection sort. These sorting algorithms are not very efficient, but they provide a key insight into what sorting is and how a sorting algorithm works behind the scenes. Bubble sort relies on multiple swaps instead of a single like selection sort. The algorithm continues to go through the array repeatedly, swapping elements that are not in their correct location.
 
-Another way to reduce restructuring is to do full splaying, but only in some of the access operations – only when the access path is longer than a threshold, or only in the first m access operations.[1]
-See also
+Algorithm:
 
-    AVL tree
-    B-tree
-    Finger tree
-    Geometry of binary search trees
-    Iacono's working set structure
-    Link/cut tree
-    List of data structures
-    Scapegoat tree
-    Splaysort, a sorting algorithm using splay trees
-    T-tree
-    Treap
-    Tree rotation
-    Trees
-    Zipper (data structure)
+    START
+    Run two loops – an inner loop and an outer loop.
+    Repeat steps till the outer loop are exhausted.
+    If the current element in the inner loop is smaller than its next element, swap the values of the two elements.
+    END
 
-Notes
+ Bubble Sort Java Code:
 
-Sleator & Tarjan 1985.
-Brinkmann, Degraer & De Loof 2009.
-Goodrich, Tamassia & Goldwasser 2014.
-Albers & Karpinski 2002.
-Allen & Munro 1978.
-Lucas 1991.
-Knuth 1997, p. 478
-Grinberg et al. (1995).
-Cole et al. 2000.
-Cole 2000.
-Tarjan 1985.
-Elmasry 2004.
-Pettie 2008.
 
-    Sundar 1992.
 
-References
+class Sort
+{
+    static void bubbleSort(int arr[], int n)
+    {
+        if (n == 1)                     //passes are done
+        {
+            return;
+        }
 
-    Albers, Susanne; Karpinski, Marek (28 February 2002). "Randomized Splay Trees: Theoretical and Experimental Results" (PDF). Information Processing Letters. 81 (4): 213–221. doi:10.1016/s0020-0190(01)00230-7.
-    Allen, Brian; Munro, Ian (October 1978). "Self-organizing binary search trees". Journal of the ACM. 25 (4): 526–535. doi:10.1145/322092.322094. S2CID 15967344.
-    Brinkmann, Gunnar; Degraer, Jan; De Loof, Karel (January 2009). "Rehabilitation of an unloved child: semi-splaying" (PDF). Software: Practice and Experience. 39 (1): 33–45. CiteSeerX 10.1.1.84.790. doi:10.1002/spe.v39:1. hdl:11382/102133. "The results show that semi-splaying, which was introduced in the same paper as splaying, performs better than splaying under almost all possible conditions. This makes semi-splaying a good alternative for all applications where normally splaying would be applied. The reason why splaying became so prominent while semi-splaying is relatively unknown and much less studied is hard to understand."
-    Cole, Richard; Mishra, Bud; Schmidt, Jeanette; Siegel, Alan (January 2000). "On the Dynamic Finger Conjecture for Splay Trees. Part I: Splay Sorting log n-Block Sequences". SIAM Journal on Computing. 30 (1): 1–43. CiteSeerX 10.1.1.36.4558. doi:10.1137/s0097539797326988.
-    Cole, Richard (January 2000). "On the Dynamic Finger Conjecture for Splay Trees. Part II: The Proof". SIAM Journal on Computing. 30 (1): 44–85. CiteSeerX 10.1.1.36.2713. doi:10.1137/S009753979732699X.
-    Elmasry, Amr (April 2004). "On the sequential access theorem and Deque conjecture for splay trees". Theoretical Computer Science. 314 (3): 459–466. doi:10.1016/j.tcs.2004.01.019.
-    Goodrich, Michael; Tamassia, Roberto; Goldwasser, Michael (2014). Data Structures and Algorithms in Java (6 ed.). Wiley. p. 506. ISBN 978-1-118-77133-4.
-    Grinberg, Dennis; Rajagopalan, Sivaramakrishnan; Venkatesan, Ramarathnam; Wei, Victor K. (1995). "Splay trees for data compression". In Clarkson, Kenneth L. (ed.). Proceedings of the Sixth Annual ACM-SIAM Symposium on Discrete Algorithms, 22–24 January 1995. San Francisco, California, USA. ACM/SIAM. pp. 522–530. "Average depth of access in a splay tree is proportional to the entropy."
-    Knuth, Donald (1997). The Art of Computer Programming. Vol. 3: Sorting and Searching (3rd ed.). Addison-Wesley. p. 478. ISBN 0-201-89685-0. "The time needed to access data in a splay tree is known to be at most a small constant multiple of the access time of a statically optimum tree, when amortized over any series of operations."
-    Lucas, Joan M. (1991). "On the Competitiveness of Splay Trees: Relations to the Union-Find Problem". On-line Algorithms: Proceedings of a DIMACS Workshop, February 11–13, 1991. Series in Discrete Mathematics and Theoretical Computer Science. Vol. 7. Center for Discrete Mathematics and Theoretical Computer Science. pp. 95–124. ISBN 0-8218-7111-0.
-    Pettie, Seth (2008). Splay Trees, Davenport-Schinzel Sequences, and the Deque Conjecture (PDF). Proc. 19th ACM-SIAM Symposium on Discrete Algorithms. Vol. 0707. pp. 1115–1124. arXiv:0707.2160. Bibcode:2007arXiv0707.2160P.
-    Sleator, Daniel D.; Tarjan, Robert E. (1985). "Self-Adjusting Binary Search Trees" (PDF). Journal of the ACM. 32 (3): 652–686. doi:10.1145/3828.3835. S2CID 1165848.
-    Sundar, Rajamani (1992). "On the Deque conjecture for the splay algorithm". Combinatorica. 12 (1): 95–124. doi:10.1007/BF01191208. S2CID 27422556.
-    Tarjan, Robert E. (1985). "Sequential access in splay trees takes linear time". Combinatorica. 5 (4): 367–378. doi:10.1007/BF02579253. S2CID 34757821.
+        for (int i=0; i<n-1; i++)       //iteration through unsorted elements
+        {
+            if (arr[i] > arr[i+1])      //check if the elements are in order
+            {                           //if not, swap them
+                int temp = arr[i];
+                arr[i] = arr[i+1];
+                arr[i+1] = temp;
+            }
+        }
 
-External links
+        bubbleSort(arr, n-1);           //one pass done, proceed to the next
+    }
 
-    NIST's Dictionary of Algorithms and Data Structures: Splay Tree
-    Implementations in C and Java (by Daniel Sleator)
-    Pointers to splay tree visualizations
-    Fast and efficient implementation of Splay trees
-    Top-Down Splay Tree Java implementation
-    Zipper Trees
+    void display(int arr[])                 //display the array
+    {
+        for (int i=0; i<arr.length; ++i)
+        {
+            System.out.print(arr[i]+" ");
+        }
+    }
 
-    vte
+    public static void main(String[] args)
+    {
+        Sort ob = new Sort();
+        int arr[] = {6, 4, 5, 12, 2, 11, 9};
+        bubbleSort(arr, arr.length);
+        ob.display(arr);
+    }
+}
 
-Tree data structures
 
-    vte
 
-Well-known data structures
-Categories:
+Explanation of how it works:
 
-    Binary treesSearch treesAmortized data structures
+bubble sort explanation
 
-    This page was last edited on 7 February 2023, at 02:03 (UTC).
-    Text is available under the Creative Commons Attribution-ShareAlike License 3.0; additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy. Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc., a non-profit organization.
+Btw, here are some good Java project ideas for beginners for you to check and apply these algorithms in practice.
+Time Complexity
 
-    Privacy policy
-    About Wikipedia
-    Disclaimers
-    Contact Wikipedia
-    Mobile view
-    Developers
-    Statistics
-    Cookie statement
+Now, learn about the time complexity of each sorting algorithm in java. Merge sort is a divide and conquer algorithm - hence it offers a more optimized approach for sorting than the others. The time complexity of mergeSort() function is O(nlogn) while the time complexity of merge() function is O(n) - making the average complexity of the algorithm as O(nlogn). Heap sort, like merge sort, is an optimized sorting algorithm (even though it is not a part of the divide and conquer paradigm). The time complexity of heapify() is O(nlogn) while the time complexity of the heapSort() function is O(n) – making the average complexity of the algorithm as O(nlogn). Selection sort, bubble sort, and insertion sort all have the best case time complexity is O(n) and the worst-case time complexity is O(n2).
+Java Sorting Algorithms Cheat Sheet
 
-    Wikimedia Foundation
-    Powered by MediaWiki
+Here is a cheat sheet for all sorting algorithms in Java:
+Algorithm 	Approach 	Best Time Complexity
+Merge Sort 	Split the array into smaller subarrays till pairs of elements are achieved, and then combine them in such a way that they are in order. 	O(n log (n))
+Heap Sort 	Build a max (or min) heap and extract the first element of the heap (or root), and then send it to the end of the heap. Decrement the size of the heap and repeat till the heap has only one node. 	O(n log (n))
+Insertion Sort 	In every run, compare it with the predecessor. If the current element is not in the correct location, keep shifting the predecessor subarray till the correct index for the element is found. 	O (n)
+Selection Sort 	Find the minimum element in each run of the array and swap it with the element at the current index is compared. 	O(n^2)
+Bubble Sort  	Keep swapping elements that are not in their right location till the array is sorted. 	O (n)
+
+
+Conclusion
+
+Sorting in Java might seem like a difficult concept to grasp for beginners, but it is very rewarding when one gets a concrete understanding of the same. Our list of a few of the most commonly used sorting methods in Java will help you in your preparation. If you are stuck anywhere, our experts will be happy to provide you any type of Java help online.
+FavTutor - 24x7 Live Coding Help from Expert Tutors!
+About The Author
+Arkadyuti Bandyopadhyay
+" Hi, I am Arkadyuti, a developer and open source enthusiast with quite some experience in content writing. I wish to make the switch to a full-stack developer one day. "
+More by FavTutor Blogs
+Delete a File in Python: 5 Methods to Remove Files (with code)
+Komal Gupta
+4 Methods to Convert Bytes to String in Python (with code)
+Kusum Jain
+Find Average of a List in Python: 5 Simple Methods (with code)
+Kusum Jain
+
+FavTutor
 

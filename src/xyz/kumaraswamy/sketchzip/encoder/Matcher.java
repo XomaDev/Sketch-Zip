@@ -5,7 +5,9 @@ import xyz.kumaraswamy.sketchzip.structures.SketchArray;
 import xyz.kumaraswamy.sketchzip.structures.SketchList;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.function.ToIntFunction;
 
 public class Matcher {
 
@@ -30,9 +32,12 @@ public class Matcher {
       words.add(new SketchArray(maxAllocation));
     }
 
+    ArrayList<Reference> usedWords = new ArrayList<>(difference); // maximum allocation
+
     for (int i = 0; i < len; i++) {
       int minOffset = i + minWordSize;
-
+      usedWords.clear();
+      // a rotation
       for (int j = difference - 1, r = maxWordSize;
            j >= 0;
            j--, r--) {
@@ -40,20 +45,29 @@ public class Matcher {
         if (offset > len)
           continue;
         SketchArray word = words.get(j);
-
         int wordIndex = word.blockSearch(bytes, r, i);
         if (wordIndex != -1) {
           Object[] aWord = new Object[offset - i];
           for (int k = i, l = 0; k < offset; k++, l++)
             aWord[l] = bytes.get(k);
-          Reference ref = Reference.get(aWord, i, offset);
+          Reference ref = new Reference(aWord, i, offset);
           if (!references.contains(ref))
-            references.add(ref);
+            //  we need to first compare frequency of
+            //  the larger word with the frequency of
+            //  the smaller word, if smaller word freq >
+            //  then we should add that first
+          {
+            ref.frequency = bytes.frequencyOf(aWord);
+            usedWords.add(ref);
+          }
         } else
           for (int k = i; k < offset; k++)
             word.add(bytes.get(k));
       }
-
+      if (!usedWords.isEmpty()) {
+        usedWords.sort((o1, o2) -> Integer.compare(o2.frequency, o1.frequency));
+        references.addAll(usedWords);
+      }
       if (minOffset >= len)
         break;
     }

@@ -46,8 +46,8 @@ public class Decoder {
       rangeOffsets[r] = readNextInt();
       i += 4; // we read offsets
     }
-    System.out.println("ranges = " + Arrays.toString(ranges));
-    System.out.println("offsets = " + Arrays.toString(rangeOffsets));
+//    System.out.println("ranges = " + Arrays.toString(ranges));
+//    System.out.println("offsets = " + Arrays.toString(rangeOffsets));
 
     dictionary = new ArrayList<>();
 
@@ -60,7 +60,7 @@ public class Decoder {
       dictionary.add(word);
       i += wordLen;
     }
-    dictionary.forEach(bytes -> System.out.println("a word = " + new String(bytes)));
+//    dictionary.forEach(bytes -> System.out.println("a word = " + new String(bytes)));
     // the rest is mystery xD
 
     for (int i = 0; i < numberOfRanges; i++) {
@@ -78,20 +78,19 @@ public class Decoder {
         if (++len == offset)
           break;
       }
-      System.out.println("len = " + len + "---------------");
+//      System.out.println("len = " + len + "---------------");
     }
-    System.out.println("is still available = " + stream.available());
+//    System.out.println("is still available = " + stream.available());
   }
 
   public void readWord(int index) throws IOException {
     byte[] bytes = dictionary.get(index - 32768);
     for (int i = 0; i < bytes.length; i++) {
       byte b = bytes[i];
-      if (b == dictByteRep) {
-        System.out.println("b = " + b);
-        System.out.println("found at = " + Arrays.toString(bytes));
-        readWord(toShort(bytes[++i], bytes[++i]));
-      } else outputStream.write(b);
+      //        System.out.println("b = " + b);
+      //        System.out.println("found at = " + Arrays.toString(bytes));
+      if (b == dictByteRep) readWord(toShort(bytes[++i], bytes[++i]));
+      else outputStream.write(b);
     }
   }
 

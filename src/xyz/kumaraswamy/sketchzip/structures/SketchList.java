@@ -1,5 +1,6 @@
 package xyz.kumaraswamy.sketchzip.structures;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 public class SketchList implements Iterable<Object> {
@@ -7,10 +8,12 @@ public class SketchList implements Iterable<Object> {
   private int length;
 
   public Object[] elements;
+
   private int index = 0;
 
   public SketchList() {
-    elements = new Object[length = 16];
+    length = 500;
+    elements = new Object[length];
   }
 
   public SketchList(byte[] bytes) {
@@ -66,15 +69,19 @@ public class SketchList implements Iterable<Object> {
 
       @Override
       public Object next() {
-        return (Object) elements[itrIndex++];
+        return elements[itrIndex++];
       }
     };
   }
 
   public int findIndexOf(Object[] sequence) {
+    return findIndexOf(sequence, 0);
+  }
+
+  public int findIndexOf(Object[] sequence, int from) {
     int slen = sequence.length;
     search:
-    for (int i = 0; i < length; i++)
+    for (int i = from; i < length; i++)
       if (elements[i].equals(sequence[0])) {
         for (int j = i + 1, k = 1;
              j < i + slen; // offset [current index] + [sequence length]
@@ -88,6 +95,15 @@ public class SketchList implements Iterable<Object> {
     return -1;
   }
 
+  public int frequencyOf(Object... elements) {
+    int wordLen = elements.length;
+    int freq = 0, onset = 0;
+    while ((onset = findIndexOf(elements, onset)) != -1) {
+      freq++;
+      onset += wordLen;
+    }
+    return freq;
+  }
 
   public void replace(int onset, int offset, Object... with) {
     int wlen = with.length;

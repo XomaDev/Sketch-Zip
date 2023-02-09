@@ -1,26 +1,14 @@
 package xyz.kumaraswamy.sketchzip.structures;
 
 import java.util.Arrays;
-import java.util.WeakHashMap;
 
-public class Reference {
+public final class Reference {
 
-  private static final WeakHashMap<Integer, Reference> weakerReferences = new WeakHashMap<>();
+  private final Object[] bytes;
+  private final int onset;
+  private final int offset;
 
-  public static Reference get(Object[] bytes, int onset, int offset) {
-    int sum = onset + offset;
-    Reference weakRef = weakerReferences.get(sum);
-    if (weakRef != null)
-      return weakRef;
-    weakRef = new Reference(bytes, onset, offset);
-    weakerReferences.put(sum, weakRef);
-    return weakRef;
-  }
-
-  public final Object[] bytes;
-
-  public final int onset;
-  public final int offset;
+  public int frequency;
 
   public Reference(Object[] bytes, int onset, int offset) {
     this.bytes = bytes;
@@ -48,4 +36,18 @@ public class Reference {
   public String toString() {
     return "<" + onset + ':' + offset + '>';
   }
+
+  public Object[] bytes() {
+    return bytes;
+  }
+
+  public int onset() {
+    return onset;
+  }
+
+  public int offset() {
+    return offset;
+  }
+
+
 }

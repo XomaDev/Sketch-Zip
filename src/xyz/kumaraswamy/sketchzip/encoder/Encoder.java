@@ -26,8 +26,12 @@ public class Encoder {
     this.bytes = bytes;
   }
 
-  public void encode(OutputStream outputStream) throws IOException {
-    this.outputStream = outputStream;
+  public void encode(OutputStream resultStream) throws IOException {
+    // TODO:
+    //  we need to calculate the final
+    //  output size, so that we can pass it to a huffman coder
+    this.outputStream = resultStream;
+
     PointRange range = new PointRange(bytes);
     List<Block> blocks = range.generateRanges();
 
@@ -49,7 +53,7 @@ public class Encoder {
     // range headers, dict_assigned, each number made of 2 bytes (8 * 2; 16 bit short)
     // [2 byte] + [4 byte] + [4 byte] + [range headers size] + [dictionary size] + [content Size]
 
-    outputStream.write(NAME);
+    resultStream.write(NAME);
 
     writeInt(rangeHeadersSize); // 4 bytes
     writeInt(dictionary.size()); // 4 bytes
@@ -62,25 +66,25 @@ public class Encoder {
 
     int offset = 0;
     for (Block block : blocks) {
-      outputStream.write(block.dictPoint); // 1 byte
+      resultStream.write(block.dictPoint); // 1 byte
 
       offset += block.list.netSize();
       writeInt(offset); // 4 byte
     }
-    outputStream.write(dictionary.toByteArray());
+    resultStream.write(dictionary.toByteArray());
 
     // actual content
     for (Block block : blocks)
       for (Object element : block.list)
         if (element instanceof Pointer pointer) {
-          outputStream.write(pointer.rep());
+          resultStream.write(pointer.rep());
 
           short index = pointer.index();
 
           // writes dict index; short; 2 bytes
-          outputStream.write(index >> 8);
-          outputStream.write((byte) index);
-        } else outputStream.write((byte) element);
+          resultStream.write(index >> 8);
+          resultStream.write((byte) index);
+        } else resultStream.write((byte) element);
   }
 
   private void writeInt(int n) throws IOException {
@@ -110,11 +114,11 @@ public class Encoder {
             Pencil.MINIMUM_WORD_SIZE, Pencil.MAXIMUM_WORD_SIZE);
 
     for (Reference reference : matches) {
-      Object[] word = reference.bytes;
+      Object[] word = reference.bytes();
 
       int indexOf = list.findIndexOf(word);
       if (indexOf != -1) {
-        int wordLen = reference.offset - reference.onset;
+        int wordLen = reference.offset() - reference.onset();
 
         writeToDictionary(word, dictPoint);
 
@@ -126,7 +130,7 @@ public class Encoder {
           list.replace(onset, onset + wordLen, pointer);
       }
     }
-
+    System.out.println("new: " + list.netSize());
     // [32 bit] dict length, {dictionary; 5;hello}
     // content
     return originalSize - list.netSize();
@@ -155,7 +159,7 @@ public class Encoder {
   }
 
   @SuppressWarnings("unused")
-  private String printable(Object[] word) {
+  public static String printable(Object[] word) {
     // for debugging
     StringBuilder text = new StringBuilder();
     for (Object letter : word)

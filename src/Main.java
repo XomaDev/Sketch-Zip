@@ -10,12 +10,14 @@ public class Main {
 
   public static void main(String[] args) throws IOException {
     System.out.println("Hello world!");
+    long initial = System.currentTimeMillis();
     byte[] bytes = Files.readAllBytes(new File(FILES, "hello.txt").toPath());
 
     ByteArrayOutputStream encodedStream = new ByteArrayOutputStream();
     SketchCode.encode(bytes, encodedStream);
 
     byte[] encoded = encodedStream.toByteArray();
+    System.out.println("encoded = " + (System.currentTimeMillis() - initial) + " ms");
     try (FileOutputStream fos =
                  new FileOutputStream(new File(FILES, "encoded.txt"))) {
       fos.write(encoded);
