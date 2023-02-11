@@ -17,6 +17,7 @@ public class Main {
     SketchCode.encode(bytes, encodedStream);
 
     byte[] encoded = encodedStream.toByteArray();
+    System.out.println("len = " + encoded.length);
     System.out.println("encoded = " + (System.currentTimeMillis() - initial) + " ms");
     try (FileOutputStream fos =
                  new FileOutputStream(new File(FILES, "encoded.txt"))) {

@@ -1,12 +1,10 @@
 package xyz.kumaraswamy.sketchzip.decoder;
 
 import xyz.kumaraswamy.sketchzip.Pencil;
+import xyz.kumaraswamy.sketchzip.huffman.HuffmanDecodeStream;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Decoder {
@@ -21,13 +19,28 @@ public class Decoder {
     }
   }
 
-  private final InputStream stream;
+  private InputStream stream;
   private final OutputStream outputStream;
 
   public Decoder(InputStream stream, OutputStream outputStream) throws IOException {
     this.stream = stream;
     this.outputStream = outputStream;
+
     matchSignature();
+
+    if (true) {
+      ByteArrayOutputStream decoded = new ByteArrayOutputStream();
+      HuffmanDecodeStream decodeStream = new HuffmanDecodeStream(stream) {
+        @Override
+        public void write(byte b) {
+          decoded.write(b);
+        }
+      };
+      System.out.println("decoded = " + decoded);
+      decodeStream.decode();
+      stream = new ByteArrayInputStream(decoded.toByteArray());
+      this.stream = stream;
+    }
 
     // sz[range headers length][dictionary length]{range headers}{dictionary}{content}
 
@@ -41,13 +54,13 @@ public class Decoder {
     byte[] ranges = new byte[numberOfRanges];
     int[] rangeOffsets = new int[numberOfRanges];
 
+    // TODO:
+    //  improvements
     for (int i = 0, r = 0; i < rangeHeadersSize; i++, r++) {
       ranges[r] = (byte) stream.read();
       rangeOffsets[r] = readNextInt();
       i += 4; // we read offsets
     }
-//    System.out.println("ranges = " + Arrays.toString(ranges));
-//    System.out.println("offsets = " + Arrays.toString(rangeOffsets));
 
     dictionary = new ArrayList<>();
 
@@ -60,27 +73,21 @@ public class Decoder {
       dictionary.add(word);
       i += wordLen;
     }
-//    dictionary.forEach(bytes -> System.out.println("a word = " + new String(bytes)));
-    // the rest is mystery xD
 
     for (int i = 0; i < numberOfRanges; i++) {
       dictByteRep = ranges[i];
-      System.out.println("dict rep = " + dictByteRep);
       int offset = rangeOffsets[i];
       int len = 0;
 
       int read;
       while ((read = stream.read()) != -1) {
-        byte b = (byte) read;
-        if (b == dictByteRep)
+        if ((byte) read == dictByteRep)
           readWord(readNextIndex());
         else outputStream.write(read);
         if (++len == offset)
           break;
       }
-//      System.out.println("len = " + len + "---------------");
     }
-//    System.out.println("is still available = " + stream.available());
   }
 
   public void readWord(int index) throws IOException {
