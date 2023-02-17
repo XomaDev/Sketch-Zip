@@ -9,9 +9,9 @@ The decoder first decompresses the Huffman-coded data using a Huffman tree and t
 
 ### About
 
-`Started`: January 20<sup>th</sup>, 2023
+`Started` January 20<sup>th</sup>, 2023
 <br>
-`Finished`: Funerary 17<sup>th</sup> 2023
+`Finished` Funerary 17<sup>th</sup> 2023
 
 Ah, a lot of things during those days, I wish I was able to finish them earlier, exams got in my way.
 
