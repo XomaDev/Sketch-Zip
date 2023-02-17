@@ -60,7 +60,6 @@ public class Encoder {
     int allocateCap = 4 * 2 + rangeHeadersSize + dictionarySize + contentSize;
 
     huffmanStream.allocate(allocateCap);
-    System.out.println("predict output size = " + allocateCap);
 
     // sz[range headers length][dictionary length]{range headers}{dictionary}{content}
     // range headers, dict_assigned, each number made of 2 bytes (8 * 2; 16 bit short)
@@ -136,7 +135,6 @@ public class Encoder {
         int wordLen = reference.offset() - reference.onset();
 
         writeToDictionary(word, dictPoint);
-
         if (index == Short.MAX_VALUE)
           throw new RuntimeException("Integer Overflow");
         Pointer pointer = new Pointer(index++, dictPoint);
@@ -145,7 +143,6 @@ public class Encoder {
           list.replace(onset, onset + wordLen, pointer);
       }
     }
-    System.out.println("new: " + list.netSize());
     // [32 bit] dict length, {dictionary; 5;hello}
     // content
     return originalSize - list.netSize();

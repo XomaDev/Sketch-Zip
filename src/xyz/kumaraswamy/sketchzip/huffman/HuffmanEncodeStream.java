@@ -15,7 +15,10 @@ public class HuffmanEncodeStream extends OutputStream {
 
   private final int[] frequencies = new int[Pencil.BYTES_LIMIT];
 
-  private final int[] bits = new int[8];
+  // true indicates 1,
+  // and false indicates 0, saves memory, int - > 32 bits
+  // boolean - > 1 bit representation
+  private final boolean[] bits = new boolean[8];
   private int bitIndex = 0;
 
   public HuffmanEncodeStream(OutputStream stream) {
@@ -48,6 +51,7 @@ public class HuffmanEncodeStream extends OutputStream {
       queue.add(new Node(queue.poll(), queue.poll()));
 
     Node root = queue.poll();
+    dumpTree(root);
 
     // TODO:
     //  we can use short data type
@@ -66,16 +70,16 @@ public class HuffmanEncodeStream extends OutputStream {
         pathDiv /= 2;
       paths[i] = bPath;
     }
-    dumpTree(root);
 
-    bits[0] = 1; // padding
+    bits[0] = true; // padding, true - > binary 1
     bitIndex++;
 
     for (byte b : bytes)
       dumpBits(paths[b & 0xff]);
-    writeBit(1); // padding
-    if (bitIndex > 0)
-      stream.write((byte) toByte(bitIndex, bits));
+    stream.write(bitIndex);
+    bits[bitIndex++] = true;  // padding
+
+    stream.write((byte) toByte(bitIndex, bits));
 
     // [content size] [content] [tree]
   }
@@ -85,7 +89,7 @@ public class HuffmanEncodeStream extends OutputStream {
     if (next == 0)
       return;
     dumpBits(next);
-    writeBit(n % 2);
+    writeBit(n % 2 == 1);
   }
 
   private void dumpTree(Node node) throws IOException {
@@ -103,20 +107,18 @@ public class HuffmanEncodeStream extends OutputStream {
     dumpTree(node.right);
   }
 
-  private void writeBit(int bit) throws IOException {
+  private void writeBit(boolean bit) throws IOException {
     bits[bitIndex++] = bit;
     if (bitIndex == 8) {
-//      System.out.println("threshold is full! ");
       stream.write((byte) toByte(bitIndex, bits));
       bitIndex = 0;
     }
   }
 
-  public static int toByte(int len, int... bits) {
+  public static int toByte(int len, boolean... bits) {
     int total = 0;
     for (int i = len - 1, pow = 0; i >= 0; i--, pow++)
-      total += (1 << pow) * bits[i];
-//    System.out.println("converted = " + (byte) total + " | " + Arrays.toString(bits) + " at index " + len);
+      total += (1 << pow) * (bits[i] ? 1 : 0);
     return total;
   }
 

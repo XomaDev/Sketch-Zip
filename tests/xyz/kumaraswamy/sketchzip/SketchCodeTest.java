@@ -36,9 +36,18 @@ class SketchCodeTest {
   public void testSecond() throws IOException {
     ByteArrayOutputStream input = new ByteArrayOutputStream();
 
+    // -128 ~ 127, 127 -128 ~ 127
+    //
+
     for (int i = Byte.MIN_VALUE; i <= Byte.MAX_VALUE; i++)
       input.write((byte) i);
     input.write(Byte.MAX_VALUE);
+    for (int i = Byte.MIN_VALUE; i <= Byte.MAX_VALUE; i++)
+      input.write((byte) i);
+
+    input.write(Byte.MAX_VALUE);
+    System.out.println("zaa");
+    System.out.println(Arrays.toString(input.toByteArray()));
 
     byte[] bytes = input.toByteArray();
     ByteArrayOutputStream stream = new ByteArrayOutputStream();

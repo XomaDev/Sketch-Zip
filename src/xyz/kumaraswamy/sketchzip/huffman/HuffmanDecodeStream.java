@@ -2,36 +2,38 @@ package xyz.kumaraswamy.sketchzip.huffman;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 
-public abstract class HuffmanDecodeStream {
+public class HuffmanDecodeStream extends InputStream {
 
   private final InputStream stream;
   private Node binaryTree, root;
+
+  private final byte[] buffer = new byte[5];
+
+  private int readIndex = 0, cursor = 0, streamIndex = 0;
+
+  private int numberOfBytes;
+
+  private boolean nearEnd = false;
+
+  // at the end, we use some special
+  // padding thus we would need to modify it
+  private int maxReading = 8;
 
   public HuffmanDecodeStream(InputStream stream) {
     this.stream = stream;
   }
 
-  // TODO:
-  //   figure out a way to implement
-  //   this class in an actual Stream type
-  //   class thus making it more good
 
   public void decode() throws IOException {
     root = decodeToBinaryTree();
-    System.out.println("miw");
 
-    int contentBytes = stream.available();
+    numberOfBytes = stream.available();
     this.binaryTree = root;
 
-
+    streamIndex++;
     firstUnsignedToBits(stream.read());
-    //                             -2 because first byte is already red
-    //                             and last byte handled specially
-    for (int i = 0; i < contentBytes - 2; i++)
-      unsignedToBits(stream.read(), 0);
-
-    unsignedToBits(stream.read() / 2);
   }
 
   // converts the unsigned decimal to
@@ -51,10 +53,10 @@ public abstract class HuffmanDecodeStream {
 
   private void unsignedToBits(int n, int len) {
     if (n == 0) {
-      for (int i = len; i < 8; i++)
+      for (int i = len; i < maxReading; i++)
         // it is like extra '0' padding
         if ((binaryTree = binaryTree.left) instanceof Leaf leaf) {
-          write(leaf.b);
+          buffer[this.cursor++] = leaf.b;
           binaryTree = root;
         }
       return;
@@ -63,21 +65,46 @@ public abstract class HuffmanDecodeStream {
     useBit(n);
   }
 
-  private void unsignedToBits(int n) {
-    if (n == 0) return;
-    unsignedToBits(n / 2);
-    useBit(n);
-  }
-
   private void useBit(int n) {
     binaryTree = n % 2 == 0 ? binaryTree.left : binaryTree.right;
     if (binaryTree instanceof Leaf leaf) {
-      write(leaf.b);
+      buffer[cursor++] = leaf.b;
       binaryTree = root;
     }
   }
 
-  public abstract void write(byte b);
+  @Override
+  public int read() throws IOException {
+    if (nearEnd && readIndex == cursor)
+      return -1;
+    if (cursor == 0 || readIndex == cursor) {
+      cursor = 0;
+      // last second!, indicates the bit length
+      // of the last byte
+      if (streamIndex == numberOfBytes - 2) {
+        maxReading = stream.read(); // unsigned is okay, maximum range 1-8
+        streamIndex++;
+      }
+      if (streamIndex < numberOfBytes - 1)
+        while (cursor == 0) {
+          streamIndex++;
+          unsignedToBits(stream.read(), 0);
+        }
+      // else almost reached the end
+      else {
+        // div by 2 removes the last
+        // bit
+        unsignedToBits(stream.read() / 2, 0);
+        nearEnd = true;
+      }
+      readIndex = 0;
+    }
+    return buffer[readIndex++] & 0xff;
+  }
+
+
+
+//  public abstract void write(byte b);
 
   private Node decodeToBinaryTree() throws IOException {
     if ((byte) stream.read() == 1)
