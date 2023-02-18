@@ -55,6 +55,7 @@ public class Decoder {
     for (int i = 0, r = 0; i < rangeHeadersSize; i++, r++) {
       ranges[r] = (byte) inputStream.read();
       rangeOffsets[r] = readNextInt();
+      System.out.println("range offset = " + rangeOffsets[r]);
       i += 4; // we read offsets
     }
 
@@ -73,16 +74,17 @@ public class Decoder {
     for (int i = 0; i < numberOfRanges; i++) {
       dictByteRep = ranges[i];
       int offset = rangeOffsets[i];
-
       int read;
       while ((read = inputStream.read()) != -1) {
-        if (((byte) read) == dictByteRep)
+        if (((byte) read) == dictByteRep) {
+          len += 2; // for the byte indicators
           readWord(readNextIndex());
-        else outputStream.write(read);
+        } else outputStream.write(read);
         if (++len == offset) // read every 255 chunks of byte
           break;
       }
     }
+    System.out.println(len);
   }
 
   public void readWord(int index) throws IOException {

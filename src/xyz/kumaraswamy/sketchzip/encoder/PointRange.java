@@ -2,7 +2,6 @@ package xyz.kumaraswamy.sketchzip.encoder;
 
 import xyz.kumaraswamy.sketchzip.Pencil;
 import xyz.kumaraswamy.sketchzip.structures.Block;
-import xyz.kumaraswamy.sketchzip.structures.Reference;
 
 import java.util.ArrayList;
 import java.util.Arrays;
