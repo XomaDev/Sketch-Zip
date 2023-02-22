@@ -74,4 +74,24 @@ class HuffmanTest {
     in.close();
     os.close();
   }
+
+  @Test
+  public void encodeFileTestFirst() throws IOException {
+    String a = "first";
+    encode(a);
+    encode("second");
+  }
+
+  private static void encode(String a) throws IOException {
+    FileInputStream stream = new FileInputStream("/home/kumaraswamy/Documents/melon/sketch-zip/files/huffman/" + a + "-part.txt");
+    FileOutputStream outputStream = new FileOutputStream("/home/kumaraswamy/Documents/melon/sketch-zip/files/huffman/" + a + "-encoded.txt");
+
+    HuffmanEncodeStream encodeStream = new HuffmanEncodeStream(outputStream);
+    encodeStream.allocate(stream.available());
+    encodeStream.write(stream.readAllBytes());
+    encodeStream.encode();
+    outputStream.close();
+    stream.close();
+
+  }
 }

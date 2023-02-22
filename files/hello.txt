@@ -1,696 +1,234 @@
 
+Jump to content
+Toggle sidebar
+Wikipedia The Free Encyclopedia
 
-Javatpoint Logo
-
-
-    home Home
-    java Java
-    java programs Programs
-    oops OOPs
-    String String
-    Exception Exception
-    Multithreading Multithreading
-    Collections Collections
-    javafx JavaFX
-    jsp JSP
-    spring Spring
-    Spring Boot Spring Boot
-    Projects Projects
-    interview questions Interview Questions
-
-
-Java Tutorial
-What is Java
-History of Java
-Features of Java
-C++ vs Java
-Hello Java Program
-Program Internal
-How to set path?
-JDK, JRE and JVM
-JVM: Java Virtual Machine
-Java Variables
-Java Data Types
-Unicode System
-Operators
-Keywords
-Control Statements
-Java Control Statements
-Java If-else
-Java Switch
-Java For Loop
-Java While Loop
-Java Do While Loop
-Java Break
-Java Continue
-Java Comments
-Java Programs
-Java Object Class
-Java OOPs Concepts
-Naming Convention
-Object and Class
-Method
-Constructor
-static keyword
-this keyword
-Java Inheritance
-Inheritance(IS-A)
-Aggregation(HAS-A)
-Java Polymorphism
-Method Overloading
-Method Overriding
-Covariant Return Type
-super keyword
-Instance Initializer block
-final keyword
-Runtime Polymorphism
-Dynamic Binding
-instanceof operator
-Java Abstraction
-Abstract class
-Interface
-Abstract vs Interface
-Java Encapsulation
-Package
-Access Modifiers
-Encapsulation
-Java Array
-Java Array
-Java OOPs Misc
-Object class
-Object Cloning
-Math class
-Wrapper Class
-Java Recursion
-Call By Value
-strictfp keyword
-javadoc tool
-Command Line Arg
-Object vs Class
-Overloading vs Overriding
-Java String
-Java Regex
-Exception Handling
-Java Inner classes
-Java Multithreading
-Java I/O
-Java Networking
-Java AWT & Events
-Java Swing
-JavaFX
-Java Applet
-Java Reflection
-Java Date
-Java Conversion
-Java Collection
-Java JDBC
-Java Misc
-Java New Features
-RMI
-Internationalization
-Interview Questions
-Java MCQ
-JavaTpoint
-next →
-← prev
-Huffman Coding Java
+    Create account
+    Log in
 
-The Huffman Coding Algorithm was proposed by David A. Huffman in 1950. It is a lossless data compression mechanism. It is also known as data compression encoding. It is widely used in image (JPEG or JPG) compression. In this section, we will discuss the Huffman encoding and decoding, and also implement its algorithm in a Java program.
+Personal tools
 
-We know that each character is a sequence of 0's and 1's and stores using 8-bits. The mechanism is called fixed-length encoding because each character uses the same number of fixed-bit storage.
+Contents
+(Top)
+Meteorological history
 
-Here, a question ascends, is it possible to reduce the amount of space required to store a character?
+Preparations
 
-Yes, it is possible by using variable-length encoding. In this mechanism, we exploit some characters that occur more frequently in comparison to other characters. In this encoding technique, we can represent the same piece of text or string by reducing the number of bits.
-Huffman Encoding
+    Norfolk Island
+    New Zealand
 
-Huffman encoding implements the following steps.
+Impact
 
-    It assigns a variable-length code to all the given characters.
-    The code length of a character depends on how frequently it occurs in the given text or string.
-    A character gets the smallest code if it frequently occurs.
-    A character gets the largest code if it least occurs.
+    Melanesia
+    Norfolk Island
+    New Zealand
 
-Huffman coding follows a prefix rule that prevents ambiguity while decoding. The rule also ensures that the code assigned to the character is not treated as a prefix of the code assigned to any other character.
+Aftermath
 
-There are the following two major steps involved in Huffman coding:
+        New Zealand
+    See also
+    References
+    External links
+
+Cyclone Gabrielle
+
+    Article
+    Talk
+
+    Read
+    Edit
+    View history
+
+From Wikipedia, the free encyclopedia
+For other storms of the same name, see Tropical Storm Gabrielle.
+Severe Tropical Cyclone GabrielleCategory 3 severe tropical cyclone (Aus scale)
+Category 2 tropical cyclone (SSHWS)
+Gabrielle 2023-02-10 0200Z.jpg
+Severe Tropical Cyclone Gabrielle near its peak intensity on 10 February
+Formed	6 February 2023
+Dissipated	16 February 2023
+(Subtropical after 11 February)
+Highest winds	10-minute sustained: 150 km/h (90 mph)
+1-minute sustained: 165 km/h (105 mph)
+Lowest pressure	958 hPa (mbar); 28.29 inHg
+Fatalities	9 confirmed[1]
+10 missing[2]
+4918 "uncontactable"[2]
+Damage	Unknown
+Areas affected
+
+    New Zealand Norfolk Island Vanuatu
+
+Part of the 2022–23 Australian region and South Pacific cyclone seasons
+
+Severe Tropical Cyclone Gabrielle was considered to be the worst tropical cyclone to hit New Zealand since Cyclone Giselle in 1968,[3] surpassing Cyclone Bola in 1988.[4] It was the fifth named storm of the 2022–23 Australian region cyclone season, and the first severe tropical cyclone of the 2022–23 South Pacific cyclone season. Gabrielle was first noted as a developing tropical low on 6 February, while it was located to the south of the Solomon Islands before it was classified as a tropical cyclone and named Gabrielle by the Bureau of Meteorology. The system peaked as a Category 3 severe tropical cyclone, before moving into the South Pacific basin, then rapidly degenerated into a subtropical low on 11 February.
+
+Norfolk Island was placed under a red alert as Gabrielle approached, while heavy rain and wind warnings were issued across the North Island of New Zealand. States of emergency that were already in place in Auckland and the Coromandel as a result of the 2023 North Island floods were extended, and new states of emergency were declared in other areas. The cyclone impacted New Zealand from 12 February to 16 February, with a national state of emergency being declared in the country on 14 February.
+Meteorological history
+Map plotting the storm's track and intensity, according to the Saffir–Simpson scale
+Map key
+
+On 6 February, the Australian Bureau of Meteorology (BoM) reported that Tropical Low 14U had developed within a monsoonal trough of low pressure over the northeastern Coral Sea near the Solomon Islands.[5][6] At this stage, the system was located within a favourable environment for further development with low vertical wind shear of 10–30 km/h (5–15 mph) and warm sea surface temperatures of 29–30 °C (84–86 °F).[5][7][8] Over the next couple of days, the system gradually developed further as it moved south-westwards along a ridge of high pressure towards Queensland, Australia, before the United States Joint Typhoon Warning Center initiated advisories and classified it as Tropical Cyclone 12P during 8 February.[9][10] At around the same time, the BoM reported that the tropical low had developed into a Category 1 tropical cyclone on the Australian tropical cyclone intensity scale and named it Gabrielle.[10][11]
+
+Gabrielle slowly drifted southwards while deep convection consolidated,[12] and the cyclone was upgraded into a Category 2 tropical cyclone, while the JTWC upgraded Gabrielle to the equivalent of a low-end Category 1-equivalent cyclone with winds of 120 km/h (75 mph).[13] By 18:00 UTC on 9 February, the storm continued to intensify and soon became a Category 3 severe tropical cyclone.[14] Later the next day, the cyclone subsequently crossed 160°E, where it moved out of the Australian region and into the South Pacific basin where it became a Category 2-equivalent cyclone.[15][16] Gabrielle began to experience an increase in northwesterly vertical wind shear, the JTWC downgraded it to a Category 1-equivalent cyclone.[17] On 10 February, Gabrielle moved into MetService's area of responsibility.[18] The JTWC also discontinued warnings on the system around 21:00 UTC that day[19] Gabrielle was downgraded to a Category 2 tropical cyclone by the MetService.[20] During 11 February, after Gabrielle had passed directly over Norfolk Island, the BoM and MetService reported that Gabrielle had weakened into a deep subtropical low.[21][22]
+Preparations
+Cyclone Gabrielle intensifying off the coast of Australia on 8–9 February
+Norfolk Island
+
+The Australian territory of Norfolk Island was placed under a red alert as Gabrielle approached, with the center of the storm forecast to pass over or close to the island.[23] Australian military and emergency personnel was on standby ready to respond.[24] The Emergency Management Norfolk Island (EMNI) sent out a warning on Saturday afternoon, advising people to stay inside and announcing that most businesses would close.[25]
+New Zealand
+
+Heavy rain and wind warnings were issued across the North Island of New Zealand as Gabrielle approached the country, including red heavy rain warnings in Northland, Auckland, Coromandel, Gisborne, and Hawke's Bay, and red wind warnings in Northland, Auckland, Coromandel, and Taranaki.[26][27] During 9 February, states of emergency which were already in place in Auckland and the Coromandel as a result of earlier floods were extended in anticipation of Gabrielle's arrival,[28][29] while a precautionary state of emergency was declared in Northland on 12 February.[30] Many residents across the upper North Island who had been affected by earlier flooding events prepared themselves for the cyclone, while emergency services were on high alert.[31] Residents were warned that power cuts were likely and it was suggested that people withdraw some cash because electronic payment systems would not work in a power cut.[32]
+
+People were encouraged to have three days of supplies.[33] Air New Zealand cancelled many domestic and international flights as the cyclone approached, while Bluebridge and Interislander cancelled ferry crossings across Cook Strait.[26][34] The Ministry of Education advised Auckland schools to close, but the decision remained with individual boards of trustees.[35] All schools in Taranaki were closed on 14 February.[36] Prime Minister Chris Hipkins said citizens of the nation should take the severe weather warning seriously and make sure they were prepared.[37] Some authorities compared the likely effect of Gabrielle with the effects of 2018's Cyclone Hola and 1988's devastating Cyclone Bola.[38]
+Impact
+Melanesia
+Gabrielle nearing the North Island on 13 February
+
+In Vanuatu, Malpoi, a village in the northwest of Espiritu Santo, was severely affected by landslides, mud, and the destruction of houses and gardens.[39] The water supply was also contaminated. As their plantations were damaged by the landslide, Allan Taman's chairman stated that the villagers may require long-term financial assistance.[39] In New Caledonia, strong swell warnings were put in place for 16 districts; 14 boats were damaged and one sank due to wind and swells, leading to an evacuation plan for the damaged ships.[39]
+Norfolk Island
+
+On Norfolk Island, a red alert warning was issued before the cyclone.[40] During 11 February, Gabrielle passed directly over Norfolk Island.[41] Although the cyclone brought down trees and disrupted power, there were no reports of significant damage.[42] Norfolk Island's emergency controller George Plant said there had been 40 calls for help, but the damage was "manageable".[43]
+New Zealand
+See also: February 2023 North Island floods
+View of South Napier after Cyclone Gabrielle.
+
+MetService reported that the cyclone brought gale-force winds to the North Island.[44] During 12 February, areas of the upper North Island began experiencing widespread power outages and property damage as the outer edges of the cyclone impacted the country,[30] with over 225,000 homes losing power across the North Island as the cyclone worsened through 13 and 14 February.[45] Severe flooding occurred as the cyclone impacted the country,[46][8] while some buildings had their roofs torn off in the wind or were damaged by landslides.[34][46] Numerous roads across the North Island were closed as a result of flooding and high winds, including Auckland Harbour Bridge.[26] Hundreds of people across the North Island were mandatorily evacuated, while hundreds more self-evacuated.[46] Two people went missing at sea near Great Barrier Island and Northland, but were both later found.[47] A firefighter went missing after being caught in a landslide in Muriwai, and was later found dead.[48] A second firefighter caught in the same landslide later died in hospital.[49] Six other people were found dead in Hawke's Bay, while one person was found dead in Gisborne.[50] The maximum rainfall from Gabrielle was 488 millimetres (19.2 in), which occurred at Hikuwai.[51]
+
+In Hawke's Bay, power, phone service and internet access was cut to over 40,000 properties when the main Redcliffe substation was damaged after the Tūtaekurī River burst its banks.[52] Downstream, 1,000 people were evacuated from low lying plains surrounding the river, where significant parts of Taradale, Meeanee, and Awatoto were submerged.[53] 8,000 additional people were evacuated or self-evacuated across the region by nightfall.[54] Floodwaters destroyed five bridges, including Redcliffe Bridge, a major crossing just south of Taradale.[55] The Ngaruroro River burst its banks, flooding the town of Omahu where 20 people required evacuation via helicopter.[55] In Wairoa, the Wairoa River burst its banks, flooding approximately 15 percent of the town.[53] Access to Wairoa was cut off after extensive damage on SH2's Mohaka River Bridge in the south, and landslides to the north.[53] Water supply in Central Hawke's Bay failed, and a mandatory evacuation was ordered for eastern Waipawa after the Waipawa River rose to record levels.[53][55] SH5 linking Napier with Taupo was closed indefinitely following major slips and infrastructure damage, as was SH2 north of Napier and the Napier-Taihape Road to the west.[56] SH2 south linking Hastings with Tararua District was closed temporarily, opening to limited traffic capacity 4 days later.[57][56]
+Aftermath
+New Zealand
+Navy personnel assist with the clean-up of debris on the streets of Auckland
+
+Prime Minister Chris Hipkins announced on 13 February that the Government would provide NZ$11.5 million to support the community response to the cyclone.[27][58] Transpower declared a grid emergency on 14 February after Hawke's Bay and Gisborne lost phone coverage, internet coverage, and electricity.[59] In addition to the states of emergency in place in Auckland, Northland, and Thames-Coromandel, additional regional states of emergency were declared in Gisborne, the Bay of Plenty, and Waikato on 13 February, with local states of emergency being declared in the Waikato, Hauraki, Whakatāne, and Ōpōtiki Districts.[27]
+
+A regional state of emergency was declared in Hawke's Bay on 14 February, with local states of emergency being declared in the Napier, Hastings, and Tararua Districts,[46] before a national state of emergency was declared for only the third time in New Zealand's history later in the day.[60] Sittings of the House of Representatives were adjourned for a week.[61][62] On 17 February, Australia sent a team of 25 impact assessment experts to aid with disaster relief in New Zealand at the request of the New Zealand Government.[63][64]
+See also
+
+    Tropical cyclones portalflagNew Zealand portal
+
+    Tropical cyclones in 2023
+    Weather of 2023
+    Cyclone Bola (1988) – a cyclone that caused similar levels of damage across New Zealand
+    Cyclone Zelia (2011)
+    Cyclone Ita (2014)
+    Cyclone Lusi (2014)
+    Cyclone Donna (2017)
+    Cyclone Ruby (2021) – took a similar track and intensity
+    Cyclone Dovi (2022) – another cyclone that had a similar path to Gabrielle
+
+References
+
+Ensor, Blair; Porter, Nadine; Halpin, James (17 February 2023). "Cyclone Gabrielle: What we know about the nine people who've died". Stuff. Archived from the original on 17 February 2023. Retrieved 17 February 2023.
+"'Heightened' concerns for about 10 people missing in wake of Cyclone Gabrielle". Stuff. Retrieved 17 February 2023.
+Brettkelly, Sharon. "Cyclone Gabrielle: What makes this storm so unique?". RNZ. The Detail. Retrieved 18 February 2023.
+"Cyclone Gabrielle damage worse than Bola - farmer". RNZ. Retrieved 18 February 2023.
+Tropical Cyclone Outlook for The Coral Sea February 6, 2023 00:47 UTC (Report). Australian Bureau of Meteorology. 6 February 2023. Archived from the original on 11 February 2023. Retrieved 11 February 2023.
+Tropical Climate Update February 7, 2023 (Report). Australian Bureau of Meteorology. 7 February 2023. Archived from the original on 13 February 2023. Retrieved 11 February 2023.
+Significant Tropical Weather Advisory for the Western and South Pacific Oceans February 6, 2023 02:30 UTC (Report). United States Joint Typhoon Warning Center. 6 February 2023. Archived from the original on 11 February 2023. Retrieved 11 February 2023.
+Morton, Jamie (15 February 2023). "Deconstructing Gabrielle: The making of a monster storm". The New Zealand Herald. Archived from the original on 15 February 2023. Retrieved 15 February 2023.
+Prognostic Reasoning for Tropical Cyclone 12P (Twelve) Warning No 1 (Report). United States Joint Typhoon Warning Center. 8 February 2023. Archived from the original on 11 February 2023. Retrieved 11 February 2023.
+Tropical Cyclone Technical Bulletin February 8, 2023 07:04 UTC (Report). Australian Bureau of Meteorology. 6 February 2023. Archived from the original on 11 February 2023.
+Ocean Wind Warning for Metarea 10 February 8, 2023 03:41 UTC (Report). Australian Bureau of Meteorology. 6 February 2023. Archived from the original on 11 February 2023.
+"Tropical Cyclone Technical Bulletin (Eastern Region)". Australian Bureau of Meteorology. 8 February 2023. Archived from the original on 8 February 2023. Retrieved 8 February 2023.
+Prognostic Reasoning for Tropical Cyclone 12P (Gabrielle) Warning No. 6 (Report). United States Joint Typhoon Warning Center. 9 February 2023. Archived from the original on 9 February 2023. Retrieved 9 February 2023.
+"Tropical Cyclone Technical Bulletin (Eastern Region)". Australian Bureau of Meteorology. 9 February 2023. Archived from the original on 8 February 2023. Retrieved 9 February 2023.
+"Tropical Cyclone Technical Bulletin (Eastern Region)". Australian Bureau of Meteorology. 10 February 2023. Archived from the original on 10 February 2023. Retrieved 10 February 2023.
+Prognostic Reasoning for Tropical Cyclone 12P (Gabrielle) Warning No. 10 (Report). United States Joint Typhoon Warning Center. 10 February 2023. Archived from the original on 10 February 2023. Retrieved 10 February 2023.
+Prognostic Reasoning for Tropical Cyclone 12P (Gabrielle) Warning No. 11 (Report). United States Joint Typhoon Warning Center. 10 February 2023. Archived from the original on 10 February 2023. Retrieved 10 February 2023.
+"Tropical Cyclone Bulletin for Severe Tropical Cyclone Gabrielle". MetService. 10 February 2023. Archived from the original on 10 February 2023. Retrieved 10 February 2023.
+Tropical Cyclone 12P (Gabrielle) Warning No. 12 (Report). United States Joint Typhoon Warning Center. 10 February 2023. Archived from the original on 10 February 2023. Retrieved 10 February 2023.
+"Tropical Cyclone Bulletin for Tropical Cyclone Gabrielle". MetService. 10 February 2023. Archived from the original on 11 February 2023. Retrieved 11 February 2023.
+"Tropical Cyclone Bulletin for Tropical Cyclone Gabrielle". MetService. 11 February 2023. Archived from the original on 11 February 2023. Retrieved 11 February 2023.
+"Tropical Cyclone Technical Bulletin (Eastern Region)". Australian Bureau of Meteorology. 11 February 2023. Archived from the original on 11 February 2023. Retrieved 11 February 2023.
+"Watch: Power goes down on Norfolk Island as Cyclone Gabrielle tracks towards NZ". NZ Herald. Archived from the original on 11 February 2023. Retrieved 11 February 2023.
+"Last flight leaves Norfolk Island as Cyclone Gabrielle bears down". 1 News. Archived from the original on 11 February 2023. Retrieved 11 February 2023.
+"Australia's Norfolk Island braces for Cyclone Gabrielle impact". Reuters. 11 February 2023. Archived from the original on 12 February 2023. Retrieved 12 February 2023.
+"Live: PM Chris Hipkins urges caution as Cyclone Gabrielle approaches". Stuff. 12 February 2023. Archived from the original on 12 February 2023. Retrieved 12 February 2023.
+"Cyclone Gabrielle live: Fears tower may collapse in storm spark evacuation call". Stuff. 13 February 2023. Archived from the original on 13 February 2023. Retrieved 13 February 2023.
+Rolleston, Te Aorewa (9 February 2023). "Coromandel extends state of emergency as Cyclone Gabrielle approaches". Stuff. Archived from the original on 11 February 2023. Retrieved 12 February 2023.
+"Auckland state of emergency extended ahead of Tropical Cyclone Gabrielle". RNZ. 9 February 2023. Archived from the original on 11 February 2023. Retrieved 11 February 2023.
+"Live: Cyclone Gabrielle sees state of emergency for Northland". 1 News. Archived from the original on 12 February 2023. Retrieved 12 February 2023.
+Klein-Nixon, Kylie (10 February 2023). "Prepare for Cyclone Gabrielle: Secure your home and put together a disaster survival kit". Stuff. Archived from the original on 11 February 2023. Retrieved 11 February 2023.
+McAnulty, Kieran (10 February 2023). "Government urges people to prepare for Cyclone Gabrielle". The Beehive. Archived from the original on 11 February 2023. Retrieved 11 February 2023.
+Anderson, Ryan (9 February 2023). "Cyclone Gabrielle: This is what you need in your three days of emergency supplies". Stuff. Archived from the original on 11 February 2023. Retrieved 11 February 2023.
+"Live: Historic tower at risk of collapse causes Mt Eden evacuations". 1 News. Archived from the original on 13 February 2023. Retrieved 13 February 2023.
+"Cyclone Gabrielle: Which schools are closed in Auckland?". NZ Herald. Archived from the original on 12 February 2023. Retrieved 12 February 2023.
+Coster, Deena (13 February 2023). "More than 10,000 homes without power in Taranaki as Cyclone Gabrielle hits region". Stuff. Archived from the original on 15 February 2023. Retrieved 13 February 2023.
+"New Zealand braces for severe storm Gabrielle after record floods". BBC News. 11 February 2023. Archived from the original on 12 February 2023. Retrieved 12 February 2023.
+"Prepare now: Cyclone Gabrielle could rival intensity of 2018 storm". Thames-Coromandel District Council. 9 February 2023. Archived from the original on 12 February 2023. Retrieved 12 February 2023.
+"Vanuatu village's water contaminated by a landslide triggered by Gabrielle". RNZ. 13 February 2023. Archived from the original on 13 February 2023. Retrieved 13 February 2023.
+"What it looked like on Norfolk Island in destructive Tropical Cyclone Gabrielle's direct path". ABC News. 11 February 2023. Archived from the original on 11 February 2023. Retrieved 11 February 2023.
+Belot, Henry (11 February 2023). "Cyclone Gabrielle: Norfolk Island issues red alert as tropical storm approaches". The Guardian. Archived from the original on 15 February 2023. Retrieved 15 February 2023.Retrieved 2023-02-15.
+"'Chorus of chainsaws' clear debris as Norfolk Island spared worst of Tropical Cyclone Gabrielle". ABC News. 12 February 2023. Archived from the original on 15 February 2023. Retrieved 15 February 2023.Retrieved 2023-02-15.
+"New Zealand braces for Cyclone Gabrielle – DW – 02/12/2023". dw.com. Archived from the original on 12 February 2023. Retrieved 12 February 2023.
+Ritchie, Claudia Dominguez,Hannah (12 February 2023). "Schools to close, flights canceled as New Zealand's largest city braces for Cyclone Gabrielle". CNN. Archived from the original on 12 February 2023. Retrieved 12 February 2023.
+"Live: High winds sees all flights suspended at Auckland Airport". 1 News. Archived from the original on 14 February 2023. Retrieved 14 February 2023.
+"Live: State of national emergency declared as Cyclone Gabrielle smashes NZ". Stuff. 14 February 2023. Archived from the original on 13 February 2023. Retrieved 14 February 2023.
+Earley, Emma Clark-Dow and Melanie (14 February 2023). "Cyclone Gabrielle: Two boaties rescued after going missing off Northland, Great Barrier". Stuff. Archived from the original on 14 February 2023. Retrieved 14 February 2023.
+reporter, Auckland (14 February 2023). "Cyclone Gabrielle: Body found in search for missing Muriwai firefighter". Stuff. Archived from the original on 15 February 2023. Retrieved 15 February 2023.
+"Second firefighter caught in Muriwai landslide has died, Fire and Emergency says". RNZ. 16 February 2023. Archived from the original on 16 February 2023. Retrieved 16 February 2023.
+Halpin, Blair Ensor, Nadine Porter and James (16 February 2023). "Cyclone Gabrielle: What we know about the nine people who've died". Stuff. Archived from the original on 16 February 2023. Retrieved 17 February 2023.
+"Cyclone Gabrielle moves away but tail brings more rain". Met Service. 15 February 2023. Archived from the original on 15 February 2023. Retrieved 15 February 2023.
+"Cyclone Gabrielle: Power will likely stay out in Napier for some days". RNZ. 16 February 2023. Archived from the original on 16 February 2023. Retrieved 18 February 2023.
+Schwanecke, Gianina (14 February 2023). "Cyclone Gabrielle: Town cut off as Wairoa River bursts its banks, flooding homes of about half its population". Stuff. Archived from the original on 14 February 2023. Retrieved 14 February 2023.
+"'Pretty brutal out there': 9000 out of homes in storm-ravaged Hawke's Bay". NZ Herald. Archived from the original on 15 February 2023. Retrieved 18 February 2023.
+"Hawke's Bay RSE workers rescued after 10 hours trapped on roofs amid flood waters". NZ Herald. Archived from the original on 14 February 2023. Retrieved 14 February 2023.
+"Weather: Cyclone Gabrielle live updates - Thursday, February 16". Newshub. Archived from the original on 16 February 2023. Retrieved 18 February 2023.
+"Live: 'Leave immediately' - part of Hawke's Bay urged to evacuate; new storm warning as death toll rises; Looters raid flood-stricken areas". NZ Herald. Archived from the original on 17 February 2023. Retrieved 18 February 2023.
+"Cyclone Gabrielle: New Zealand declares state of emergency". BBC News. 14 February 2023. Archived from the original on 13 February 2023. Retrieved 14 February 2023.
+Hunt, Tom (13 February 2023). "Gisborne and Hawke's Bay communications down, power out for 'days to weeks'". Stuff. Archived from the original on 13 February 2023. Retrieved 13 February 2023.
+McConnell, Glenn (13 February 2023). "Cyclone Gabrielle: National state of emergency declared". Stuff. Archived from the original on 13 February 2023. Retrieved 13 February 2023.
+Manch, Thomas (14 February 2023). "Politicians squabble over cancelling Parliament due to Cyclone Gabrielle". Stuff. Archived from the original on 14 February 2023. Retrieved 14 February 2023.
+McAnulty, Kieran (14 February 2023). "State of National Emergency Declared". Beehive.govt.nz. New Zealand Government. Archived from the original on 14 February 2023. Retrieved 14 February 2023.
+"Australia sends emergency team to cyclone response". Otago Daily Times. 17 February 2023. Archived from the original on 17 February 2023. Retrieved 17 February 2023.
+
+    Evans, Jake (17 February 2023). "Australian disaster crew to New Zealand, as death toll from former cyclone rises to seven". ABC News. Australian Broadcasting Corporation. Archived from the original on 17 February 2023. Retrieved 17 February 2023.
+
+External links
+
+    Media related to Cyclone Gabrielle (2023) at Wikimedia Commons
+    World Meteorological Organization
+    Australian Bureau of Meteorology
+    Fiji Meteorological Service
+    New Zealand MetService
+    Joint Typhoon Warning Center
+
+    vte
+
+Deadliest meteorological events in 2023
+
+    vte
+
+Tropical cyclones of the 2022–23 Australian region cyclone season
+
+    vte
+
+Tropical cyclones of the 2022–23 South Pacific cyclone season
+
+    vte
+
+Category 3 Australian region severe tropical cyclones
+
+    vte
+
+Category 3 South Pacific severe tropical cyclones
+Categories:
+
+    2023 meteorology2023 in Norfolk IslandFebruary 2023 events in New Zealand2022–23 South Pacific cyclone season2022–23 Australian region cyclone seasonTropical cyclones in 2023Tropical cyclones in New ZealandTropical cyclones in Norfolk IslandCategory 3 South Pacific cyclonesCategory 3 Australian region cyclones
+
+    This page was last edited on 18 February 2023, at 18:18 (UTC).
+    Text is available under the Creative Commons Attribution-ShareAlike License 3.0; additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy. Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc., a non-profit organization.
+
+    Privacy policy
+    About Wikipedia
+    Disclaimers
+    Contact Wikipedia
+    Mobile view
+    Developers
+    Statistics
+    Cookie statement
+
+    Wikimedia Foundation
+    Powered by MediaWiki
 
-    First, construct a Huffman tree from the given input string or characters or text.
-    Assign, a Huffman code to each character by traversing over the tree.
-
-Let's brief the above two steps.
-Huffman Tree
-
-Step 1: For each character of the node, create a leaf node. The leaf node of a character contains the frequency of that character.
-
-Step 2: Set all the nodes in sorted order according to their frequency.
-
-Step 3: There may exist a condition in which two nodes may have the same frequency. In such a case, do the following:
-
-    Create a new internal node.
-    The frequency of the node will be the sum of the frequency of those two nodes that have the same frequency.
-    Mark the first node as the left child and another node as the right child of the newly created internal node.
-
-Step 4: Repeat step 2 and 3 until all the node forms a single tree. Thus, we get a Huffman tree.
-Huffman Encoding Example
-
-Suppose, we have to encode string abracadabra. Determine the following:
-
-    Huffman code for All the characters
-    Average code length for the given String
-    Length of the encoded string
-
-(i) Huffman Code for All the Characters
-
-In order to determine the code for each character, first, we construct a Huffman tree.
-
-Step 1: Make pairs of characters and their frequencies.
-
-(a, 5), (b, 2), (c, 1), (d, 1), (r, 2)
-
-Step 2: Sort pairs with respect to frequency, we get:
-
-(c, 1), (d, 1), (b, 2) (r, 2), (a, 5)
-
-Step 3: Pick the first two characters and join them under a parent node.
-Huffman Coding Java
-
-We observe that a parent node does not have a frequency so, we must assign a frequency to it. The parent node frequency will be the sum of its child nodes (left and right) i.e. 1+1=2.
-Huffman Coding Java
-
-Step 4: Repeat Steps 2 and 3 until, we get a single tree.
-
-We observe that the pairs are already in a sorted (by step 2) manner. Again, pick the first two pairs and join them.
-Huffman Coding Java
-
-We observe that a parent node does not has a frequency so, we must assign a frequency to it. The parent node frequency will be the sum of its child nodes (left and right) i.e. 2+2=4.
-Huffman Coding Java
-
-Again, we check if the pairs are in a sorted manner or not. At this step, we need to sort the pairs.
-Huffman Coding Java
-
-According to step 3, pick the first two pairs and join them, we get:
-Huffman Coding Java
-
-We observe that a parent node does not have a frequency so, we must assign a frequency to it. The parent node frequency will be the sum of its child nodes (left and right) i.e. 2+4=6.
-Huffman Coding Java
-
-Again, we check if the pairs are in a sorted manner or not. At this step, we need to sort the pairs. After sorting the tree looks like the following:
-Huffman Coding Java
-
-According to step 3, pick the first two pairs and join them, we get:
-Huffman Coding Java
-
-We observe that a parent node does not have a frequency so, we must assign a frequency to it. The parent node frequency will be the sum of its child nodes (left and right) i.e. 5+6=11.
-Huffman Coding Java
-
-Therefore, we get a single tree.
-
-At last, we will find the code for each character with the help of the above tree. Assign a weight to each edge. Note that each left edge-weighted is 0 and the right edge-weighted is 1.
-Huffman Coding Java
-
-We observe that input characters are only presented in the leave nodes and the internal nodes have null values. In order to find the Huffman code for each character, traverse over the Huffman tree from the root node to the leaf node of that particular character for which we want to find code. The table describes the code and code length for each character.
-Character 	Frequency 	Code 	Code Length
-A 	5 	0 	1
-B 	2 	111 	3
-C 	1 	1100 	4
-D 	1 	1101 	4
-R 	2 	10 	2
-
-We observe that the most frequent character gets the shortest code length and the less frequent character gets the largest code length.
-
-Now we can encode the string (abracadabra) that we have taken above.
-
-    0 111 10 0 1100 0 1101 0 111 10 0
-
-(ii) Average Code Length for the String
-
-The average code length of the Huffman tree can be determined by using the formula given below:
-
-    Average Code Length = ∑ ( frequency × code length ) / ∑ ( frequency )
-
-= { (5 x 1) + (2 x 3) + (1 x 4) + (1 x 4) + (2 x 2) } / (5+2+1+1+2)
-
-= 2.09090909
-(iii) Length of the Encoded String
-
-The length of the encoded message can be determined by using the following formula:
-
-    length= Total number of characters in the text x Average code length per character
-
-= 11 x 2.09090909
-
-= 23 bits
-Huffman Encoding Algorithm
-
-    Huffman (C)
-    n=|C|
-    Q=C
-    for i=1 to n-1
-        do
-            z=allocate_Node()
-            x=left[z]=Extract_Min(Q)
-            y=right[z]=Extract_Min(Q)
-            f[z]=f[x]+f[y]
-    Insert(Q,z)
-    return Extract_Min(Q)
-
-The Huffman algorithm is a greedy algorithm. Since at every stage the algorithm looks for the best available options.
-
-The time complexity of the Huffman encoding is O(nlogn). Where n is the number of characters in the given text.
-Huffman Decoding
-
-Huffman decoding is a technique that converts the encoded data into initial data. As we have seen in encoding, the Huffman tree is made for an input string and the characters are decoded based on their position in the tree. The decoding process is as follows:
-
-    Start traversing over the tree from the root node and search for the character.
-    If we move left in the binary tree, add 0 to the code.
-    If we move right in the binary tree, add 1 to the code.
-
-The child node holds the input character. It is assigned the code formed by subsequent 0s and 1s. The time complexity of decoding a string is O(n), where n is the length of the string.
-Huffman Encoding and Decoding Java Program
-
-In the following program, we have used data structures like priority queues, stacks, and trees to design a compression and decompression logic. We will base our utilities on the widely used algorithmic technique of Huffman coding.
-
-HuffmanCode.java
-
-    import java.util.Comparator;
-    import java.util.HashMap;
-    import java.util.Map;
-    import java.util.PriorityQueue;
-    //defining a class that creates nodes of the tree
-    class Node
-    {
-        //storing character in ch variable of type character
-        Character ch;
-        //storing frequency in freq variable of type int
-        Integer freq;
-        //initially both child (left and right) are null
-        Node left = null;
-        Node right = null;
-        //creating a constructor of the Node class
-        Node(Character ch, Integer freq)
-        {
-            this.ch = ch;
-            this.freq = freq;
-        }
-        //creating a constructor of the Node class
-        public Node(Character ch, Integer freq, Node left, Node right)
-        {
-            this.ch = ch;
-            this.freq = freq;
-            this.left = left;
-            this.right = right;
-        }
-    }
-    //main class
-    public class HuffmanCode
-    {
-        //function to build Huffman tree
-        public static void createHuffmanTree(String text)
-        {
-            //base case: if user does not provides string
-            if (text == null || text.length() == 0)
-            {
-                return;
-            }
-            //count the frequency of appearance of each character and store it in a map
-            //creating an instance of the Map
-            Map<Character, Integer> freq = new HashMap<>();
-            //loop iterates over the string and converts the text into character array
-            for (char c: text.toCharArray())
-            {
-                //storing character and their frequency into Map by invoking the put() method
-                freq.put(c, freq.getOrDefault(c, 0) + 1);
-            }
-            //create a priority queue that stores current nodes of the Huffman tree.
-            //here a point to note that the highest priority means the lowest frequency
-            PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparingInt(l -> l.freq));
-            //loop iterate over the Map and returns a Set view of the mappings contained in this Map
-            for (var entry: freq.entrySet())
-            {
-                //creates a leaf node and add it to the queue
-                pq.add(new Node(entry.getKey(), entry.getValue()));
-            }
-            //while loop runs until there is more than one node in the queue
-            while (pq.size() != 1)
-            {
-                //removing the nodes having the highest priority (the lowest frequency) from the queue
-                Node left = pq.poll();
-                Node right = pq.poll();
-                //create a new internal node with these two nodes as children and with a frequency equal to the sum of both nodes' frequencies. Add the new node to the priority queue.
-                //sum up the frequency of the nodes (left and right) that we have deleted
-                int sum = left.freq + right.freq;
-                //adding a new internal node (deleted nodes i.e. right and left) to the queue with a frequency that is equal to the sum of both nodes
-                pq.add(new Node(null, sum, left, right));
-            }
-            //root stores pointer to the root of Huffman Tree
-            Node root = pq.peek();
-            //trace over the Huffman tree and store the Huffman codes in a map
-            Map<Character, String> huffmanCode = new HashMap<>();
-            encodeData(root, "", huffmanCode);
-            //print the Huffman codes for the characters
-            System.out.println("Huffman Codes of the characters are: " + huffmanCode);
-            //prints the initial data
-            System.out.println("The initial string is: " + text);
-            //creating an instance of the StringBuilder class
-            StringBuilder sb = new StringBuilder();
-            //loop iterate over the character array
-            for (char c: text.toCharArray())
-            {
-                //prints encoded string by getting characters
-                sb.append(huffmanCode.get(c));
-            }
-            System.out.println("The encoded string is: " + sb);
-            System.out.print("The decoded string is: ");
-            if (isLeaf(root))
-            {
-                //special case: For input like a, aa, aaa, etc.
-                while (root.freq-- > 0)
-                {
-                    System.out.print(root.ch);
-                }
-            }
-            else
-            {
-                //traverse over the Huffman tree again and this time, decode the encoded string
-                int index = -1;
-                while (index < sb.length() - 1)
-                {
-                    index = decodeData(root, index, sb);
-                }
-            }
-        }
-    //traverse the Huffman Tree and store Huffman Codes in a Map
-        //function that encodes the data
-        public static void encodeData(Node root, String str, Map<Character, String> huffmanCode)
-        {
-            if (root == null)
-            {
-                return;
-            }
-            //checks if the node is a leaf node or not
-            if (isLeaf(root))
-            {
-                huffmanCode.put(root.ch, str.length() > 0 ? str : "1");
-            }
-            encodeData(root.left, str + '0', huffmanCode);
-            encodeData(root.right, str + '1', huffmanCode);
-        }
-        //traverse the Huffman Tree and decode the encoded string function that decodes the encoded data
-        public static int decodeData(Node root, int index, StringBuilder sb)
-        {
-            //checks if the root node is null or not
-            if (root == null)
-            {
-                return index;
-            }
-            //checks if the node is a leaf node or not
-            if (isLeaf(root))
-            {
-                System.out.print(root.ch);
-                return index;
-            }
-            index++;
-            root = (sb.charAt(index) == '0') ? root.left : root.right;
-            index = decodeData(root, index, sb);
-            return index;
-        }
-        //function to check if the Huffman Tree contains a single node
-        public static boolean isLeaf(Node root)
-        {
-            //returns true if both conditions return ture
-            return root.left == null && root.right == null;
-        }
-        //driver code
-        public static void main(String args[])
-        {
-            String text = "javatpoint";
-            //function calling
-            createHuffmanTree(text);
-        }
-    }
-
-Output:
-
-Huffman Codes of the characters are: {p=000, a=110, t=111, v=001, i=010, j=011, n=100, o=101}
-The initial string is: javatpoint
-The encoded string is: 011110001110111000101010100111
-The decoded string is: javatpoint
-
-Next TopicJava Snippet Class
-
-
-← prev
-next →
-
-
-Youtube For Videos Join Our Youtube Channel: Join Now
-Feedback
-
-    Send your Feedback to feedback@javatpoint.com
-
-Help Others, Please Share
-facebook twitter pinterest
-Learn Latest Tutorials
-Splunk tutorial
-
-Splunk
-SPSS tutorial
-
-SPSS
-Swagger tutorial
-
-Swagger
-T-SQL tutorial
-
-Transact-SQL
-Tumblr tutorial
-
-Tumblr
-React tutorial
-
-ReactJS
-Regex tutorial
-
-Regex
-Reinforcement learning tutorial
-
-Reinforcement Learning
-R Programming tutorial
-
-R Programming
-RxJS tutorial
-
-RxJS
-React Native tutorial
-
-React Native
-Python Design Patterns
-
-Python Design Patterns
-Python Pillow tutorial
-
-Python Pillow
-Python Turtle tutorial
-
-Python Turtle
-Keras tutorial
-
-Keras
-Preparation
-Aptitude
-
-Aptitude
-Logical Reasoning
-
-Reasoning
-Verbal Ability
-
-Verbal Ability
-Interview Questions
-
-Interview Questions
-Company Interview Questions
-
-Company Questions
-Trending Technologies
-Artificial Intelligence
-
-Artificial Intelligence
-AWS Tutorial
-
-AWS
-Selenium tutorial
-
-Selenium
-Cloud Computing
-
-Cloud Computing
-Hadoop tutorial
-
-Hadoop
-ReactJS Tutorial
-
-ReactJS
-Data Science Tutorial
-
-Data Science
-Angular 7 Tutorial
-
-Angular 7
-Blockchain Tutorial
-
-Blockchain
-Git Tutorial
-
-Git
-Machine Learning Tutorial
-
-Machine Learning
-DevOps Tutorial
-
-DevOps
-B.Tech / MCA
-DBMS tutorial
-
-DBMS
-Data Structures tutorial
-
-Data Structures
-DAA tutorial
-
-DAA
-Operating System
-
-Operating System
-Computer Network tutorial
-
-Computer Network
-Compiler Design tutorial
-
-Compiler Design
-Computer Organization and Architecture
-
-Computer Organization
-Discrete Mathematics Tutorial
-
-Discrete Mathematics
-Ethical Hacking
-
-Ethical Hacking
-Computer Graphics Tutorial
-
-Computer Graphics
-Software Engineering
-
-Software Engineering
-html tutorial
-
-Web Technology
-Cyber Security tutorial
-
-Cyber Security
-Automata Tutorial
-
-Automata
-C Language tutorial
-
-C Programming
-C++ tutorial
-
-C++
-Java tutorial
-
-Java
-.Net Framework tutorial
-
-.Net
-Python tutorial
-
-Python
-List of Programs
-
-Programs
-Control Systems tutorial
-
-Control System
-Data Mining Tutorial
-
-Data Mining
-Data Warehouse Tutorial
-
-Data Warehouse
-
-
-
-Javatpoint Services
-
-JavaTpoint offers too many high quality services. Mail us on hr@javatpoint.com, to get more information about given services.
-
-    Website Designing
-    Website Development
-    Java Development
-    PHP Development
-    WordPress
-    Graphic Designing
-    Logo
-    Digital Marketing
-    On Page and Off Page SEO
-    PPC
-    Content Development
-    Corporate Training
-    Classroom and Online Training
-    Data Entry
-
-Training For College Campus
-
-JavaTpoint offers college campus training on Core Java, Advance Java, .Net, Android, Hadoop, PHP, Web Technology and Python. Please mail your requirement at hr@javatpoint.com.
-Duration: 1 week to 2 week
-Like/Subscribe us for latest updates or newsletter RSS Feed Subscribe to Get Email Alerts Facebook Page Twitter Page YouTube Blog Page
-Learn Tutorials
-Learn Java
-Learn Data Structures
-Learn C Programming
-Learn C++ Tutorial
-Learn C# Tutorial
-Learn PHP Tutorial
-Learn HTML Tutorial
-Learn JavaScript Tutorial
-Learn jQuery Tutorial
-Learn Spring Tutorial
-Our Websites
-Javatpoint.com
-Hindi100.com
-Lyricsia.com
-Quoteperson.com
-Jobandplacement.com
-Our Services
-
-Website Development
-
-Android Development
-
-Website Designing
-
-Digital Marketing
-
-Summer Training
-
-Industrial Training
-
-College Campus Training
-Contact
-
-Address: G-13, 2nd Floor, Sec-3
-
-Noida, UP, 201301, India
-
-Contact No: 0120-4256464, 9990449935
-Contact Us
-Subscribe Us
-Privacy Policy
-Sitemap
-
-About Me
-
-© Copyright 2011-2021 www.javatpoint.com. All rights reserved. Developed by JavaTpoint.

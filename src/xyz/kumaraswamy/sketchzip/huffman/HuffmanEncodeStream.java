@@ -18,8 +18,13 @@ public class HuffmanEncodeStream extends OutputStream {
   // true indicates 1,
   // and false indicates 0, saves memory, int - > 32 bits
   // boolean - > 1 bit representation
-  private final boolean[] bits = new boolean[8];
-  private int bitIndex = 0;
+
+  // TODO:
+  //  maybe we should first pass huffman stream - > then to lzw
+  //  for faster compression
+  private int currentByte;
+
+  private int bitsWritten = 0;
 
   public HuffmanEncodeStream(OutputStream stream) {
     this.stream = stream;
@@ -53,8 +58,6 @@ public class HuffmanEncodeStream extends OutputStream {
     Node root = queue.poll();
     dumpTree(root);
 
-    // TODO:
-    //  we can use short data type
     int[] paths = new int[Pencil.BYTES_LIMIT];
 
     for (int i = 0; i < Pencil.BYTES_LIMIT; i++) {
@@ -71,17 +74,15 @@ public class HuffmanEncodeStream extends OutputStream {
       paths[i] = bPath;
     }
 
-    bits[0] = true; // padding, true - > binary 1
-    bitIndex++;
+    writeBit(1);
+    bitsWritten++;
 
     for (byte b : bytes)
       dumpBits(paths[b & 0xff]);
-    stream.write(bitIndex);
-    bits[bitIndex++] = true;  // padding
+    stream.write(bitsWritten);
+    writeBit(1);
 
-    stream.write((byte) toByte(bitIndex, bits));
-
-    // [content size] [content] [tree]
+    push();
   }
 
   private void dumpBits(int n) throws IOException {
@@ -89,7 +90,7 @@ public class HuffmanEncodeStream extends OutputStream {
     if (next == 0)
       return;
     dumpBits(next);
-    writeBit(n % 2 == 1);
+    writeBit(n % 2);
   }
 
   private void dumpTree(Node node) throws IOException {
@@ -107,19 +108,18 @@ public class HuffmanEncodeStream extends OutputStream {
     dumpTree(node.right);
   }
 
-  private void writeBit(boolean bit) throws IOException {
-    bits[bitIndex++] = bit;
-    if (bitIndex == 8) {
-      stream.write((byte) toByte(bitIndex, bits));
-      bitIndex = 0;
-    }
+  private void writeBit(int bit) throws IOException {
+    currentByte = (currentByte << 1) | bit;
+    bitsWritten++;
+
+    if (bitsWritten == 8)
+      push();
   }
 
-  public static int toByte(int len, boolean... bits) {
-    int total = 0;
-    for (int i = len - 1, pow = 0; i >= 0; i--, pow++)
-      total += (1 << pow) * (bits[i] ? 1 : 0);
-    return total;
+  private void push() throws IOException {
+    stream.write(currentByte);
+    bitsWritten = 0;
+    currentByte = 0;
   }
 
   private int findPath(byte b, Node node, int path) {
