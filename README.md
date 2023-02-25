@@ -24,7 +24,7 @@ primary concern when creating the program. (Sadly, its too slow)
 
 ### Compression Ratio
 
-The table shows the compression ratios achieved by three different algorithms for an input data size of 19.6 kB.
+The table shows the compression ratios achieved by three different algorithms for an input data size of 25.5 kb.
 
 | Algorithm            | Input Size | Output Size | Compression Ratio |
 |----------------------|------------|-------------|-------------------|
