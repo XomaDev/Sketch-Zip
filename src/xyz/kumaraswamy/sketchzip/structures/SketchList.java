@@ -1,6 +1,5 @@
 package xyz.kumaraswamy.sketchzip.structures;
 
-import java.util.Arrays;
 import java.util.Iterator;
 
 public class SketchList implements Iterable<Object> {

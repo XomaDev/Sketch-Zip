@@ -51,6 +51,31 @@ class HuffmanTest {
     while ((read = decodeStream.read()) != -1)
       decoded.write(read);
     System.out.println("decoded = " + decoded);
+    System.out.println(decoded.toString().equals(text));
+  }
+
+  @Test
+  public void testTree() throws IOException {
+    String text = "abcdawdawA *( SP*(AP*(S(*(*AP*SY(A(SY*P( AS)AU()S() AS**ASdawdef";
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    HuffmanEncodeStream stream = new HuffmanEncodeStream(outputStream);
+
+    byte[] bytes = text.getBytes();
+    stream.allocate(bytes.length);
+    stream.write(bytes);
+    stream.encode();
+
+    byte[] encoded = outputStream.toByteArray();
+    System.out.println("encoded = " + Arrays.toString(encoded));
+
+    ByteArrayOutputStream decoded = new ByteArrayOutputStream();
+    HuffmanDecodeStream decodeStream = new HuffmanDecodeStream(new ByteArrayInputStream(encoded));
+    decodeStream.decode();
+
+    int read;
+    while ((read = decodeStream.read()) != -1)
+      decoded.write(read);
+    System.out.println("decoded = " + decoded);
   }
 
   @Test

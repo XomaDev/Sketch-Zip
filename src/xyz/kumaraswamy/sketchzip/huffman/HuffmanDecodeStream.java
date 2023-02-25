@@ -1,12 +1,13 @@
 package xyz.kumaraswamy.sketchzip.huffman;
 
+import xyz.kumaraswamy.sketchzip.io.BitInputStream;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 
 public class HuffmanDecodeStream extends InputStream {
 
-  private final InputStream stream;
+  private final BitInputStream stream;
   private Node binaryTree, root;
 
   private final byte[] buffer = new byte[5];
@@ -22,7 +23,7 @@ public class HuffmanDecodeStream extends InputStream {
   private int maxReading = 8;
 
   public HuffmanDecodeStream(InputStream stream) {
-    this.stream = stream;
+    this.stream = new BitInputStream(stream);
   }
 
 
@@ -41,7 +42,7 @@ public class HuffmanDecodeStream extends InputStream {
   // the number
 
   private void firstUnsignedToBits(int n) {
-    int next = n / 2;
+    int next = n >> 1;
     if (next == 0) // avoid the first bit of `n`
       return;
     firstUnsignedToBits(next);
@@ -53,15 +54,16 @@ public class HuffmanDecodeStream extends InputStream {
 
   private void unsignedToBits(int n, int len) {
     if (n == 0) {
-      for (int i = len; i < maxReading; i++)
-        // it is like extra '0' padding
+      len = maxReading - len;
+      while (len-- != 0) {
         if ((binaryTree = binaryTree.left) instanceof Leaf leaf) {
           buffer[this.cursor++] = leaf.b;
           binaryTree = root;
         }
+      }
       return;
     }
-    unsignedToBits(n / 2, len + 1);
+    unsignedToBits(n >> 1, len + 1);
     useBit(n);
   }
 
@@ -94,7 +96,7 @@ public class HuffmanDecodeStream extends InputStream {
       else {
         // div by 2 removes the last
         // bit
-        unsignedToBits(stream.read() / 2, 0);
+        unsignedToBits(stream.read(), 0);
         nearEnd = true;
       }
       readIndex = 0;
@@ -102,12 +104,8 @@ public class HuffmanDecodeStream extends InputStream {
     return buffer[readIndex++] & 0xff;
   }
 
-
-
-//  public abstract void write(byte b);
-
   private Node decodeToBinaryTree() throws IOException {
-    if ((byte) stream.read() == 1)
+    if (stream.readBit() == 1)
       return new Leaf(0, (byte) stream.read());
     return new Node(decodeToBinaryTree(), decodeToBinaryTree());
   }

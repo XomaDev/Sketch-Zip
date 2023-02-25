@@ -13,6 +13,8 @@ public class Main {
   private static final File FILES = new File(System.getProperty("user.dir"), "/files/");
 
   public static void main(String[] args) throws IOException {
+    // TODO:
+    //  handle data in pure binaries
     System.out.println("Hello world!");
     long initial = System.currentTimeMillis();
     byte[] bytes = Files.readAllBytes(new File(FILES, "hello.txt").toPath());

@@ -2,34 +2,48 @@ package xyz.kumaraswamy.sketchzip.huffman;
 
 public class Node implements Comparable<Node> {
 
-    public final Node left;
-    public final Node right;
+  public final Node left;
+  public final Node right;
 
-    private final int freq;
+  public final int freq;
 
-    public Node(int freq) {
-      this.freq = freq;
-      left = null;
-      right = null;
-    }
+  public byte b;
 
-    public Node(Node left, Node right) {
-      this.left = left;
-      this.right = right;
-      freq = left == null || right == null ? 0 : left.freq + right.freq;
-    }
+  public Node(byte b, int freq) {
+    this.freq = freq;
+    left = null;
+    right = null;
+    this.b = b;
+  }
 
-    @Override
-    public int compareTo(Node another) {
-      return Integer.compare(freq, another.freq);
-    }
+  public Node(int freq) {
+    this.freq = freq;
+    left = null;
+    right = null;
+  }
 
-    @Override
-    public String toString() {
-      return "Node{" +
-              "freq=" + freq +
-              ", leftNode=" + left +
-              ", rightNode=" + right +
+  public Node(Node left, Node right) {
+    this.left = left;
+    this.right = right;
+    freq = left == null || right == null ? 0 : left.freq + right.freq;
+  }
+
+  @Override
+  public int compareTo(Node another) {
+    return Integer.compare(freq, another.freq);
+  }
+
+  @Override
+  public String toString() {
+    if (left == null) {
+      return "Leaf{" +
+              "byt=" + (char) b +
               '}';
     }
+    return "Node{" +
+            "freq=" + freq +
+            ", leftNode=" + left +
+            ", rightNode=" + right +
+            '}';
   }
+}
