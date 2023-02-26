@@ -44,12 +44,8 @@ class HuffmanTest {
     System.out.println("encoded = " + Arrays.toString(encoded));
 
     ByteArrayOutputStream decoded = new ByteArrayOutputStream();
-    HuffmanDecodeStream decodeStream = new HuffmanDecodeStream(new ByteArrayInputStream(encoded));
-    decodeStream.decode();
+    decoded.writeBytes(new HuffmanDecodeStream(new ByteArrayInputStream(encoded)).readAllBytes());
 
-    int read;
-    while ((read = decodeStream.read()) != -1)
-      decoded.write(read);
     System.out.println("decoded = " + decoded);
     System.out.println(decoded.toString().equals(text));
   }
@@ -69,18 +65,14 @@ class HuffmanTest {
     System.out.println("encoded = " + Arrays.toString(encoded));
 
     ByteArrayOutputStream decoded = new ByteArrayOutputStream();
-    HuffmanDecodeStream decodeStream = new HuffmanDecodeStream(new ByteArrayInputStream(encoded));
-    decodeStream.decode();
+    decoded.write(new HuffmanDecodeStream(new ByteArrayInputStream(encoded)).readAllBytes());
 
-    int read;
-    while ((read = decodeStream.read()) != -1)
-      decoded.write(read);
     System.out.println("decoded = " + decoded);
   }
 
   @Test
   public void encodeFileTest() throws IOException {
-    FileInputStream stream = new FileInputStream("/home/kumaraswamy/Documents/melon/sketch-zip/files/hello.txt");
+    FileInputStream stream = new FileInputStream("/home/kumaraswamy/Documents/melon/sketch-zip/files/hinput.txt");
     FileOutputStream outputStream = new FileOutputStream("/home/kumaraswamy/Documents/melon/sketch-zip/files/huffman.txt");
 
     HuffmanEncodeStream encodeStream = new HuffmanEncodeStream(outputStream);
@@ -94,29 +86,10 @@ class HuffmanTest {
     FileOutputStream os = new FileOutputStream("/home/kumaraswamy/Documents/melon/sketch-zip/files/huffman-decoded.txt");
 
     HuffmanDecodeStream decodeStream = new HuffmanDecodeStream(in);
-    decodeStream.decode();
     os.write(decodeStream.readAllBytes());
     in.close();
     os.close();
   }
 
-  @Test
-  public void encodeFileTestFirst() throws IOException {
-    String a = "first";
-    encode(a);
-    encode("second");
-  }
 
-  private static void encode(String a) throws IOException {
-    FileInputStream stream = new FileInputStream("/home/kumaraswamy/Documents/melon/sketch-zip/files/huffman/" + a + "-part.txt");
-    FileOutputStream outputStream = new FileOutputStream("/home/kumaraswamy/Documents/melon/sketch-zip/files/huffman/" + a + "-encoded.txt");
-
-    HuffmanEncodeStream encodeStream = new HuffmanEncodeStream(outputStream);
-    encodeStream.allocate(stream.available());
-    encodeStream.write(stream.readAllBytes());
-    encodeStream.encode();
-    outputStream.close();
-    stream.close();
-
-  }
 }

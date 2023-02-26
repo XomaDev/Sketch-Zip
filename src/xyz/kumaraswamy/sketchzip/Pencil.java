@@ -8,4 +8,5 @@ public class Pencil {
           Byte.MIN_VALUE) + Byte.MAX_VALUE + 1; // +1 for 0
 
   public static final byte[] NAME = {  115, 122  };
+  public static final byte[] HUFFMAN = {  104, 122  };
 }

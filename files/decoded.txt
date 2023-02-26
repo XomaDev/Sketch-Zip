@@ -63,7 +63,7 @@ Part of the 2022–23 Australian region and South Pacific cyclone seasons
 
 Severe Tropical Cyclone Gabrielle was considered to be the worst tropical cyclone to hit New Zealand since Cyclone Giselle in 1968,[3] surpassing Cyclone Bola in 1988.[4] It was the fifth named storm of the 2022–23 Australian region cyclone season, and the first severe tropical cyclone of the 2022–23 South Pacific cyclone season. Gabrielle was first noted as a developing tropical low on 6 February, while it was located to the south of the Solomon Islands before it was classified as a tropical cyclone and named Gabrielle by the Bureau of Meteorology. The system peaked as a Category 3 severe tropical cyclone, before moving into the South Pacific basin, then rapidly degenerated into a subtropical low on 11 February.
 
-Norfolk Island was placed under a red alert as Gabrielle approached, while heavy rain and wind warnings were issued across the North Island of New Zealand. States of emergency that were already in place in Auckland and the Coromandel as a result of the 2023 North Island floods were extended, and new states of emergency were declared in other areas. The cyclone impacted New Zealand from 12 February to 16 February, with a national state of emergency being declared in the country on 14 February.
+Norfolk Island was placed under a red alert as Gabrielle approached, while hipkins across the North Island of New Zealand. States of emergency that were already in place in Auckland and the Coromandel as a result of the 2023 North Island floods were extended, and new states of emergency were declared in other areas. The cyclone impacted New Zealand from 12 February to 16 February, with a national state of emergency being declared in the country on 14 February.
 Meteorological history
 Map plotting the storm's track and intensity, according to the Saffir–Simpson scale
 Map key
@@ -78,7 +78,7 @@ Norfolk Island
 The Australian territory of Norfolk Island was placed under a red alert as Gabrielle approached, with the center of the storm forecast to pass over or close to the island.[23] Australian military and emergency personnel was on standby ready to respond.[24] The Emergency Management Norfolk Island (EMNI) sent out a warning on Saturday afternoon, advising people to stay inside and announcing that most businesses would close.[25]
 New Zealand
 
-Heavy rain and wind warnings were issued across the North Island of New Zealand as Gabrielle approached the country, including red heavy rain warnings in Northland, Auckland, Coromandel, Gisborne, and Hawke's Bay, and red wind warnings in Northland, Auckland, Coromandel, and Taranaki.[26][27] During 9 February, states of emergency which were already in place in Auckland and the Coromandel as a result of earlier floods were extended in anticipation of Gabrielle's arrival,[28][29] while a precautionary state of emergency was declared in Northland on 12 February.[30] Many residents across the upper North Island who had been affected by earlier flooding events prepared themselves for the cyclone, while emergency services were on high alert.[31] Residents were warned that power cuts were likely and it was suggested that people withdraw some cash because electronic payment systems would not work in a power cut.[32]
+Hipkins across the North Island of New Zealand as Gabrielle approached the country, including red heavy rain warnings in Northland, Auckland, Coromandel, Gisborne, and Hawke's Bay, and red wind warnings in Northland, Auckland, Coromandel, and Taranaki.[26][27] During 9 February, states of emergency which were already in place in Auckland and the Coromandel as a result of earlier floods were extended in anticipation of Gabrielle's arrival,[28][29] while a precautionary state of emergency was declared in Northland on 12 February.[30] Many residents across the upper North Island who had been affected by earlier flooding events prepared themselves for the cyclone, while emergency services were on high alert.[31] Residents were warned that power cuts were likely and it was suggested that people withdraw some cash because electronic payment systems would not work in a power cut.[32]
 
 People were encouraged to have three days of supplies.[33] Air New Zealand cancelled many domestic and international flights as the cyclone approached, while Bluebridge and Interislander cancelled ferry crossings across Cook Strait.[26][34] The Ministry of Education advised Auckland schools to close, but the decision remained with individual boards of trustees.[35] All schools in Taranaki were closed on 14 February.[36] Prime Minister Chris Hipkins said citizens of the nation should take the severe weather warning seriously and make sure they were prepared.[37] Some authorities compared the likely effect of Gabrielle with the effects of 2018's Cyclone Hola and 1988's devastating Cyclone Bola.[38]
 Impact
@@ -100,7 +100,7 @@ Aftermath
 New Zealand
 Navy personnel assist with the clean-up of debris on the streets of Auckland
 
-Prime Minister Chris Hipkins announced on 13 February that the Government would provide NZ$11.5 million to support the community response to the cyclone.[27][58] Transpower declared a grid emergency on 14 February after Hawke's Bay and Gisborne lost phone coverage, internet coverage, and electricity.[59] In addition to the states of emergency in place in Auckland, Northland, and Thames-Coromandel, additional regional states of emergency were declared in Gisborne, the Bay of Plenty, and Waikato on 13 February, with local states of emergency being declared in the Waikato, Hauraki, Whakatāne, and Ōpōtiki Districts.[27]
+Prime Minister Chris H red announced on 13 February that the Government would provide NZ$11.5 million to support the community response to the cyclone.[27][58] Transpower declared a grid emergency on 14 February after Hawke's Bay and Gisborne lost phone coverage, internet coverage, and electricity.[59] In addition to the states of emergency in place in Auckland, Northland, and Thames-Coromandel, additional regional states of emergency were declared in Gisborne, the Bay of Plenty, and Waikato on 13 February, with local states of emergency being declared in the Waikato, Hauraki, Whakatāne, and Ōpōtiki Districts.[27]
 
 A regional state of emergency was declared in Hawke's Bay on 14 February, with local states of emergency being declared in the Napier, Hastings, and Tararua Districts,[46] before a national state of emergency was declared for only the third time in New Zealand's history later in the day.[60] Sittings of the House of Representatives were adjourned for a week.[61][62] On 17 February, Australia sent a team of 25 impact assessment experts to aid with disaster relief in New Zealand at the request of the New Zealand Government.[63][64]
 See also
@@ -218,7 +218,7 @@ Categories:
     2023 meteorology2023 in Norfolk IslandFebruary 2023 events in New Zealand2022–23 South Pacific cyclone season2022–23 Australian region cyclone seasonTropical cyclones in 2023Tropical cyclones in New ZealandTropical cyclones in Norfolk IslandCategory 3 South Pacific cyclonesCategory 3 Australian region cyclones
 
     This page was last edited on 18 February 2023, at 18:18 (UTC).
-    Text is available under the Creative Commons Attribution-ShareAlike License 3.0; additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy. Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc., a non-profit organization.
+    Text is availablepedia the Creative Commons Attribution-ShareAlike License 3.0; additional terms may apply. By using this site, you agree to the Terms of Use and Privacy Policy. Wikipedia® is a registered trademark of the Wikimedia Foundation, Inc., a non-profit organization.
 
     Privacy policy
     About Wikipedia
@@ -231,4 +231,4 @@ Categories:
 
     Wikimedia Foundation
     Powered by MediaWiki
-�
+

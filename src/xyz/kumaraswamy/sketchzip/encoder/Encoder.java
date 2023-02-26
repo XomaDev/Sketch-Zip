@@ -2,6 +2,7 @@ package xyz.kumaraswamy.sketchzip.encoder;
 
 import xyz.kumaraswamy.sketchzip.Pencil;
 import xyz.kumaraswamy.sketchzip.huffman.HuffmanEncodeStream;
+import xyz.kumaraswamy.sketchzip.io.BitOutputStream;
 import xyz.kumaraswamy.sketchzip.structures.Block;
 import xyz.kumaraswamy.sketchzip.structures.Pointer;
 import xyz.kumaraswamy.sketchzip.structures.Reference;
@@ -12,7 +13,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
-import static xyz.kumaraswamy.sketchzip.Pencil.NAME;
+import static xyz.kumaraswamy.sketchzip.Pencil.HUFFMAN;
 
 public class Encoder {
 
@@ -21,20 +22,23 @@ public class Encoder {
   private short index = Short.MIN_VALUE;
 
   private final ByteArrayOutputStream dictionary = new ByteArrayOutputStream();
-  private HuffmanEncodeStream huffmanStream;
 
-  public Encoder(byte[] bytes) {
+  private final HuffmanEncodeStream huffmanStream;
+  private final BitOutputStream bitsStream;
+
+  public Encoder(byte[] bytes, OutputStream outputStream) throws IOException {
     this.bytes = bytes;
+
+    outputStream.write(HUFFMAN);
+
+    // encoder = > bit stream wrapper = > huffman stream
+    huffmanStream = new HuffmanEncodeStream(outputStream);
+    bitsStream = new BitOutputStream(huffmanStream);
+
+    encode();
   }
 
-  public void encode(OutputStream outputStream) throws IOException {
-    outputStream.write(NAME);
-    encode(new HuffmanEncodeStream(outputStream));
-  }
-
-  public void encode(HuffmanEncodeStream huffmanStream) throws IOException {
-    this.huffmanStream = huffmanStream;
-
+  private void encode() throws IOException {
     PointRange range = new PointRange(bytes);
     List<Block> blocks = range.generateRanges();
 
@@ -65,8 +69,8 @@ public class Encoder {
     // range headers, dict_assigned, each number made of 2 bytes (8 * 2; 16 bit short)
     // [2 byte] + [4 byte] + [4 byte] + [range headers size] + [dictionary size] + [content Size]
 
-    writeInt(rangeHeadersSize); // 4 bytes
-    writeInt(dictionarySize); // 4 bytes
+    bitsStream.writeInt32(rangeHeadersSize); // 4 bytes
+    bitsStream.writeInt32(dictionarySize); // 4 bytes
 
     // TODO:
     //  we need to separate these length headers
@@ -76,36 +80,31 @@ public class Encoder {
 
     int offset = 0;
     for (Block block : blocks) {
-      huffmanStream.write(block.dictPoint); // 1 byte
+      bitsStream.write(block.dictPoint); // 1 byte
 
       offset += block.list.netSize();
-      writeInt(offset); // 4 byte
+      bitsStream.writeInt32(offset);
     }
-    huffmanStream.write(dictionary.toByteArray());
+    bitsStream.write(dictionary.toByteArray());
 
     // actual content
     for (Block block : blocks) {
       for (Object element : block.list)
         if (element instanceof Pointer pointer) {
-          huffmanStream.write(pointer.rep());
+          bitsStream.write(pointer.rep());
 
           short index = pointer.index();
 
           // writes dict index; short; 2 bytes
-          huffmanStream.write(index >> 8);
-          huffmanStream.write((byte) index);
-        } else huffmanStream.write((byte) element);
+          bitsStream.write(index >> 8);
+          bitsStream.write((byte) index);
+        } else bitsStream.write((byte) element);
     }
     // sz[range headers length][dictionary length]{range headers}{dictionary}{content}
     System.out.println("predict output size = " + allocateCap);
-    huffmanStream.encode();
-  }
 
-  private void writeInt(int n) {
-    huffmanStream.write(n >> 24);
-    huffmanStream.write(n >> 16);
-    huffmanStream.write(n >> 8);
-    huffmanStream.write(n);
+    bitsStream.close();
+    huffmanStream.encode();
   }
 
   private int encodeBlocks(List<Block> blocks) {
@@ -178,7 +177,7 @@ public class Encoder {
       if (letter == null)
         break;
       else if (letter instanceof Pointer pointer)
-        text.append("<")
+        text.append('<')
                 .append(pointer.index())
                 .append('>');
       else text.append((char) (byte) letter);

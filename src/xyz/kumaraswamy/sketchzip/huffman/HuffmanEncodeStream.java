@@ -16,12 +16,14 @@ public class HuffmanEncodeStream extends OutputStream {
 
   private final int[] frequencies = new int[Pencil.BYTES_LIMIT];
 
-  public HuffmanEncodeStream(OutputStream stream) {
+  public HuffmanEncodeStream(OutputStream stream) throws IOException {
     this.stream = new BitOutputStream(stream);
+    stream.write(new byte[] { 104, 122 }); // signature
   }
 
-  public void allocate(int cap) {
+  public void allocate(int cap) throws IOException {
     bytes = new byte[cap];
+    stream.writeInt32(cap);
   }
 
   @Override
@@ -31,24 +33,24 @@ public class HuffmanEncodeStream extends OutputStream {
     frequencies[b & 0xff]++;
   }
 
-  /**
-   * Writes the tree to the stream.
-   * Each leaf is represent by *1* bit followed
-   * by next character.
-   * <p>
-   * A tree: which has left and right element is
-   * represented by *0* bit, and it goes on
-   */
-  private void dumpTree(Node node) throws IOException {
-    // [0, 1, 2, 1, 3]
-    if (node instanceof Leaf) {
+  public void writeTree(Node node) throws IOException {
+    if (node.left == null) { // leaf node
       stream.writeBit(1);
-      stream.write(((Leaf) node).b);
-      return;
+      stream.write(node.b);
+    } else {
+      stream.writeBit(0);
+      writeTree(node.left);
+      writeTree(node.right);
     }
-    stream.writeBit(0);
-    dumpTree(node.left);
-    dumpTree(node.right);
+  }
+
+  public int pathOf(byte b, Node node, int path) {
+    if (node.left == null) // leaf node
+      return node.b == b ? path : -1;
+    path <<= 1;
+
+    int p = pathOf(b, node.left, path | 1);
+    return p == -1 ? pathOf(b, node.right, path) : p;
   }
 
   public void encode() throws IOException {
@@ -56,67 +58,40 @@ public class HuffmanEncodeStream extends OutputStream {
 
     for (int i = 0; i < Pencil.BYTES_LIMIT; i++) {
       int freq = frequencies[i];
-      if (freq == 0)
-        continue;
-      queue.add(new Leaf(freq, (byte) i));
+      if (freq != 0)
+        queue.add(new Node((byte) i, freq));
     }
 
     Node root = queue.poll();
-    dumpTree(root);
+
+    stream.writeBit(1); // preservation
+    writeTree(root);
 
     int[] paths = new int[Pencil.BYTES_LIMIT];
 
-    for (int i = 0; i < Pencil.BYTES_LIMIT; i++) {
-      int freq = frequencies[i];
-      if (freq == 0)
-        continue;
-      // the binary value assigned
-      // to the byte
-      int bPath = findPath((byte) i, root, 1);
+    for (int i = 0; i < Pencil.BYTES_LIMIT; i++)
+      if (frequencies[i] != 0)
+        // has extra 1 bit MSB
+        paths[i] = pathOf((byte) i, root, 1);
 
-      int pathDiv = bPath;
-      while (pathDiv != 0)
-        pathDiv >>= 1;
-      paths[i] = bPath;
-    }
-
-    stream.writeBit(1); // initial padding
     for (byte b : bytes)
-      dumpBits(paths[b & 0xff]);
+      writeBits(paths[b & 0xff]);
 
-    // indicates how many buffer remaining
-    // or the total len of last byte.
-    // can be 0 too. Writes the value directly to
-    // the stream, irrespective of whether there
-    // is a buffer already.
-    stream.writeStream(stream.bitsWritten + 1);
-    stream.writeBit(1); // end padding
-
+    // allow decoder to terminate without
+    // problems
+    for (int i = 0; i < 2; i++)
+      stream.write(0);
     stream.close();
   }
 
-  /**
-   * Writes the decimal n as bits to the stream,
-   * ignores the MSB
-   */
-  private void dumpBits(int n) throws IOException {
-    int next = n >> 1;
+  // writes the path to the stream,
+  // ignores msb
+
+  private void writeBits(int path) throws IOException {
+    int next = path >> 1;
     if (next == 0)
       return;
-    dumpBits(next);
-    stream.writeBit(n % 2);
-  }
-
-  private int findPath(byte b, Node node, int path) {
-    if (node instanceof Leaf) {
-      if (((Leaf) node).b == b)
-        return path;
-      return -1;
-    }
-    path <<= 1;
-    int p = findPath(b, node.right, path | 1);
-    if (p == -1)
-      p = findPath(b, node.left, path);
-    return p;
+    writeBits(next);
+    stream.writeBit(path % 2);
   }
 }

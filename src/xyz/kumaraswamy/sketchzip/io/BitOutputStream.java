@@ -3,7 +3,7 @@ package xyz.kumaraswamy.sketchzip.io;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class BitOutputStream {
+public class BitOutputStream extends OutputStream {
 
   private final OutputStream output;
 
@@ -23,15 +23,11 @@ public class BitOutputStream {
     currentByte = (currentByte << 1) | b;
     bitsWritten++;
     if (bitsWritten == 8) {
-      pushBuffer();
+      output.write(currentByte);
+
+      bitsWritten = 0;
+      currentByte = 0;
     }
-  }
-
-  public void pushBuffer() throws IOException {
-    output.write(currentByte);
-
-    bitsWritten = 0;
-    currentByte = 0;
   }
 
   /**
@@ -46,8 +42,11 @@ public class BitOutputStream {
   }
 
 
-  public void writeStream(int n) throws IOException {
-    output.write(n);
+  public void writeInt32(int n) throws IOException {
+    write(n >> 24);
+    write(n >> 16);
+    write(n >> 8);
+    write(n);
   }
 
   /**

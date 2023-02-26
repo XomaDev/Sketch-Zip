@@ -3,7 +3,7 @@ package xyz.kumaraswamy.sketchzip.io;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class BitInputStream {
+public class BitInputStream extends InputStream {
 
   private final InputStream stream;
 
@@ -19,6 +19,22 @@ public class BitInputStream {
     if (bitCursor != -1)
       available++;
     return available;
+  }
+
+  public int readShort16() throws IOException {
+    return ((byte) read() & 255) << 8 |
+            (byte) read() & 255;
+  }
+
+  /**
+   * Reads a 32-bit integer from the stream
+   */
+
+  public int readInt32() throws IOException {
+    return (((byte) read() & 255) << 24) |
+            (((byte) read() & 255) << 16) |
+            (((byte) read() & 255) << 8) |
+            (((byte) read() & 255));
   }
 
   /**

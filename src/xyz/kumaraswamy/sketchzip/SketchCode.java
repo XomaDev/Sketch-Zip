@@ -10,8 +10,7 @@ import java.io.OutputStream;
 public class SketchCode {
 
   public static void encode(byte[] bytes, OutputStream outputStream) throws IOException {
-    Encoder encoder = new Encoder(bytes);
-    encoder.encode(outputStream);
+    new Encoder(bytes, outputStream);
   }
 
   public static void decode(InputStream inputStream, OutputStream outputStream) throws IOException {

@@ -1,112 +1,85 @@
 package xyz.kumaraswamy.sketchzip.huffman;
 
+import xyz.kumaraswamy.sketchzip.Pencil;
 import xyz.kumaraswamy.sketchzip.io.BitInputStream;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 public class HuffmanDecodeStream extends InputStream {
 
-  private final BitInputStream stream;
-  private Node binaryTree, root;
+  private static int BUFFER_SIZE = 5;
+  private final byte[] buffer = new byte[BUFFER_SIZE];
 
-  private final byte[] buffer = new byte[5];
+  private int readCursor, writeCursor;
 
-  private int readIndex = 0, cursor = 0, streamIndex = 0;
+  private final BitInputStream bitStream;
 
-  private int numberOfBytes;
+  private final int originalSize;
+  private int bytesDecoded = 0;
 
-  private boolean nearEnd = false;
+  private boolean reachedEnd = false;
 
-  // at the end, we use some special
-  // padding thus we would need to modify it
-  private int maxReading = 8;
+  private final Node root;
+  private Node traveller;
 
-  public HuffmanDecodeStream(InputStream stream) {
-    this.stream = new BitInputStream(stream);
+  public HuffmanDecodeStream(InputStream stream) throws IOException {
+    bitStream = new BitInputStream(stream);
+
+    for (byte b : Pencil.HUFFMAN)
+      if (b != bitStream.read())
+        throw new IOException("Not a huffman file!");
+
+    originalSize = bitStream.readInt32();
+    bitStream.readBit(); // ignore reading
+
+    root = decodeHuffmanTree();
+    traveller = root;
   }
 
-
-  public void decode() throws IOException {
-    root = decodeToBinaryTree();
-
-    numberOfBytes = stream.available();
-    this.binaryTree = root;
-
-    streamIndex++;
-    firstUnsignedToBits(stream.read());
-  }
-
-  // converts the unsigned decimal to
-  // bits. Ignores the first bit (padding) of
-  // the number
-
-  private void firstUnsignedToBits(int n) {
-    int next = n >> 1;
-    if (next == 0) // avoid the first bit of `n`
-      return;
-    firstUnsignedToBits(next);
-    useBit(n);
-  }
-
-  // unsigned decimal to bits, adds extra
-  // '0' padding if not of len 8
-
-  private void unsignedToBits(int n, int len) {
-    if (n == 0) {
-      len = maxReading - len;
-      while (len-- != 0) {
-        if ((binaryTree = binaryTree.left) instanceof Leaf leaf) {
-          buffer[this.cursor++] = leaf.b;
-          binaryTree = root;
-        }
-      }
-      return;
-    }
-    unsignedToBits(n >> 1, len + 1);
-    useBit(n);
-  }
-
-  private void useBit(int n) {
-    binaryTree = n % 2 == 0 ? binaryTree.left : binaryTree.right;
-    if (binaryTree instanceof Leaf leaf) {
-      buffer[cursor++] = leaf.b;
-      binaryTree = root;
-    }
+  @Override
+  public byte[] readAllBytes() throws IOException {
+    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+    int read;
+    while ((read = read()) != -1)
+      stream.write(read);
+    return stream.toByteArray();
   }
 
   @Override
   public int read() throws IOException {
-    if (nearEnd && readIndex == cursor)
-      return -1;
-    if (cursor == 0 || readIndex == cursor) {
-      cursor = 0;
-      // last second!, indicates the bit length
-      // of the last byte
-      if (streamIndex == numberOfBytes - 2) {
-        maxReading = stream.read(); // unsigned is okay, maximum range 1-8
-        streamIndex++;
-      }
-      if (streamIndex < numberOfBytes - 1)
-        while (cursor == 0) {
-          streamIndex++;
-          unsignedToBits(stream.read(), 0);
+    if (writeCursor == 0 || readCursor == BUFFER_SIZE) {
+      if (reachedEnd)
+        return -1;
+      writeCursor = 0;
+      while (writeCursor != BUFFER_SIZE) {
+        traveller = bitStream.readBit() == 1
+                ? traveller.left
+                : traveller.right;
+        if (traveller.left == null) {
+          buffer[writeCursor++] = traveller.b;
+          traveller = root;
+
+          bytesDecoded++;
+          if (bytesDecoded == originalSize) {
+            // reached the end, no more bytes to decode
+            // set the buffer size to match the last bytes
+            BUFFER_SIZE = writeCursor;
+            reachedEnd = true;
+            break;
+          }
         }
-      // else almost reached the end
-      else {
-        // div by 2 removes the last
-        // bit
-        unsignedToBits(stream.read(), 0);
-        nearEnd = true;
       }
-      readIndex = 0;
+      readCursor = 0;
     }
-    return buffer[readIndex++] & 0xff;
+    return buffer[readCursor++];
   }
 
-  private Node decodeToBinaryTree() throws IOException {
-    if (stream.readBit() == 1)
-      return new Leaf(0, (byte) stream.read());
-    return new Node(decodeToBinaryTree(), decodeToBinaryTree());
+
+  private Node decodeHuffmanTree() throws IOException {
+    if (bitStream.readBit() == 1)
+      return new Node((byte) bitStream.read(), 0);
+    return new Node(decodeHuffmanTree(), decodeHuffmanTree());
   }
 }

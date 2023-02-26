@@ -2,14 +2,12 @@ package xyz.kumaraswamy.sketchzip.decoder;
 
 import xyz.kumaraswamy.sketchzip.Pencil;
 import xyz.kumaraswamy.sketchzip.huffman.HuffmanDecodeStream;
-import xyz.kumaraswamy.sketchzip.huffman.HuffmanEncodeStream;
+import xyz.kumaraswamy.sketchzip.io.BitInputStream;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Decoder {
@@ -24,24 +22,22 @@ public class Decoder {
     }
   }
 
-  private final HuffmanDecodeStream huffmanStream;
   private final OutputStream outputStream;
 
   public Decoder(InputStream inputStream, OutputStream outputStream) throws IOException {
-    matchSignature(inputStream); // match the signature first!
+    for (byte b : Pencil.HUFFMAN)
+      if (b != inputStream.read())
+        throw new SketchException("Not a valid Sketch-Zip file!");
 
-    huffmanStream = new HuffmanDecodeStream(inputStream);
-    huffmanStream.decode();
-
-    inputStream = this.huffmanStream;
-
+    // Huffman Decode Stream => Bit Stream Wrapper => Decoder
+    BitInputStream bitsStream = new BitInputStream(new HuffmanDecodeStream(inputStream));
     this.outputStream = outputStream;
 
 
     // sz[range headers length][dictionary length]{range headers}{dictionary}{content}
 
-    int rangeHeadersSize = readNextInt();
-    int dictionarySize = readNextInt();
+    int rangeHeadersSize = bitsStream.readInt32();
+    int dictionarySize = bitsStream.readInt32();
 
     System.out.println("range headers size = " + rangeHeadersSize);
     System.out.println("dictionary size = " + dictionarySize);
@@ -53,19 +49,19 @@ public class Decoder {
     // TODO:
     //  improvements
     for (int i = 0, r = 0; i < rangeHeadersSize; i++, r++) {
-      ranges[r] = (byte) inputStream.read();
-      rangeOffsets[r] = readNextInt();
+      ranges[r] = (byte) bitsStream.read();
+      rangeOffsets[r] = bitsStream.readInt32();
       System.out.println("range offset = " + rangeOffsets[r]);
       i += 4; // we read offsets
     }
 
     dictionary = new ArrayList<>();
     for (int i = 0; i < dictionarySize; i++) {
-      int wordLen = inputStream.read() & 0xff;
+      int wordLen = bitsStream.read() & 0xff;
 
       byte[] word = new byte[wordLen];
       for (int j = 0; j < wordLen; j++)
-        word[j] = (byte) inputStream.read();
+        word[j] = (byte) bitsStream.read();
       dictionary.add(word);
       i += wordLen;
     }
@@ -75,16 +71,15 @@ public class Decoder {
       dictByteRep = ranges[i];
       int offset = rangeOffsets[i];
       int read;
-      while ((read = inputStream.read()) != -1) {
+      while ((read = bitsStream.read()) != -1) {
         if (((byte) read) == dictByteRep) {
           len += 2; // for the byte indicators
-          readWord(readNextIndex());
+          readWord(bitsStream.readShort16());
         } else outputStream.write(read);
-        if (++len == offset) // read every 255 chunks of byte
+        if (++len == offset)
           break;
       }
     }
-    System.out.println(len);
   }
 
   public void readWord(int index) throws IOException {
@@ -97,35 +92,8 @@ public class Decoder {
     }
   }
 
-  /**
-   * reads a 16 bit short from the stream
-   */
-  private int readNextIndex() throws IOException {
-    return toShort((byte) huffmanStream.read(), (byte) huffmanStream.read());
-  }
-
-  private int toShort(byte first, byte second) {
+  private int toShort(int first, int second) {
     return (first & 255) << 8 |
             second & 255;
-  }
-
-
-  /**
-   * reads 32 bit int from the stream
-   *
-   * @return int
-   */
-
-  private int readNextInt() throws IOException {
-    return (((byte) huffmanStream.read() & 255) << 24) |
-            (((byte) huffmanStream.read() & 255) << 16) |
-            (((byte) huffmanStream.read() & 255) << 8) |
-            (((byte) huffmanStream.read() & 255));
-  }
-
-  private void matchSignature(InputStream stream) throws IOException {
-    for (byte b : Pencil.NAME)
-      if (b != stream.read())
-        throw new SketchException("Not a valid Sketch-Zip file!");
   }
 }
