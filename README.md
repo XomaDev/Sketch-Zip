@@ -13,8 +13,6 @@ dictionary. The decoded data is then decompressed using LZW to recover the origi
 ### About
 
 `Started` January 20<sup>th</sup>, 2023
-<br>
-`Finished` February 17<sup>th</sup> 2023
 
 Ah, a lot of things during those days, I wish I was able to finish them earlier, exams got in my way.
 
@@ -28,7 +26,7 @@ The table shows the compression ratios achieved by three different algorithms fo
 
 | Algorithm            | Input Size | Output Size | Compression Ratio |
 |----------------------|------------|-------------|-------------------|
-| Sketch Zip Algorithm | 25.5 kb    | 13.1 kB     | 48.2%             |
+| Sketch Zip Algorithm | 25.5 kb    | 12.7 kB     | 50.2%             |
 | 7zip Algorithm       | 25.5 kb    | 7.3 KB      | 71.4%             |
 | Xz Algorithm         | 25.5 kb    | 7.3 kB      | 71.4%             |
 

@@ -48,7 +48,6 @@ public class HuffmanEncodeStream extends OutputStream {
     if (node.left == null) // leaf node
       return node.b == b ? path : -1;
     path <<= 1;
-
     int p = pathOf(b, node.left, path | 1);
     return p == -1 ? pathOf(b, node.right, path) : p;
   }

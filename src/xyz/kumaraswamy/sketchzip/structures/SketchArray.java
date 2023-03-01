@@ -32,6 +32,10 @@ public class SketchArray {
     size = newSize;
   }
 
+  /**
+   * Searches for a block in the array,
+   * offset = onset + wordSize
+   */
   public int blockSearch(SketchList reference, int wordSize, int onset) {
     search:
     for (int i = 0; i < size; i += wordSize) {

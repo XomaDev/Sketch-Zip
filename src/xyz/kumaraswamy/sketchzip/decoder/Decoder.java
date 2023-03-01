@@ -25,7 +25,7 @@ public class Decoder {
   private final OutputStream outputStream;
 
   public Decoder(InputStream inputStream, OutputStream outputStream) throws IOException {
-    for (byte b : Pencil.HUFFMAN)
+    for (byte b : Pencil.NAME)
       if (b != inputStream.read())
         throw new SketchException("Not a valid Sketch-Zip file!");
 

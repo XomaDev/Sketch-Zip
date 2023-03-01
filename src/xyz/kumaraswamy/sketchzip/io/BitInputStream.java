@@ -67,5 +67,4 @@ public class BitInputStream extends InputStream {
     }
     return n;
   }
-
 }

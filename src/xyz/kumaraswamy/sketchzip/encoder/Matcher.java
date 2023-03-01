@@ -1,5 +1,6 @@
 package xyz.kumaraswamy.sketchzip.encoder;
 
+import xyz.kumaraswamy.sketchzip.structures.FrequencyQueue;
 import xyz.kumaraswamy.sketchzip.structures.Reference;
 import xyz.kumaraswamy.sketchzip.structures.SketchArray;
 import xyz.kumaraswamy.sketchzip.structures.SketchList;

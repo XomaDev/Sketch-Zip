@@ -37,11 +37,17 @@ public class BitOutputStream extends OutputStream {
    */
 
   public void write(int n) throws IOException {
-    // un-sign it
-    toBits(n & 0xff, 0);
+    n &= 0xff; // un-sign it
+
+    // range: 0 ~ 256 only
+    // convert the ints to bits
+    for (int i = 7; i >= 0; i--)
+      writeBit((n >> i) & 1);
   }
 
-
+  /**
+   * Writes 32-bit integer to output
+   */
   public void writeInt32(int n) throws IOException {
     write(n >> 24);
     write(n >> 16);
@@ -49,22 +55,13 @@ public class BitOutputStream extends OutputStream {
     write(n);
   }
 
-  /**
-   * Writes the decimal bit by bit,
-   * pads with extra 0s at the start
-   * to complete 8 bits
-   */
 
-  private void toBits(int n, int numOfBits) throws IOException {
-    if (n == 0) {
-      // msb padding
-      numOfBits = 8 - numOfBits;
-      while (numOfBits-- != 0)
-        writeBit(0);
-      return;
-    }
-    toBits(n >> 1, numOfBits + 1);
-    writeBit(n % 2);
+  /**
+   * Writes a 16-bit short int to stream
+   */
+  public void writeShort16(short n) throws IOException {
+    write(n >> 8);
+    write((byte) n);
   }
 
   public void close() throws IOException {
