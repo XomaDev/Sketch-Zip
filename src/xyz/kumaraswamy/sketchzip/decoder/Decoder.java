@@ -79,6 +79,10 @@ public class Decoder {
         if (++len == offset)
           break;
       }
+      if (read == -1)
+        // reached end of the input
+        // stream, nothing more left
+        break;
     }
   }
 

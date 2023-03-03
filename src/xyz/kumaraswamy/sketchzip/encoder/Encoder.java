@@ -47,7 +47,7 @@ public class Encoder {
     PointRange range = new PointRange(bytes);
     long n = System.currentTimeMillis();
     List<Block> blocks = range.generateRanges();
-    System.out.println("time to generate ranges = " + (System.currentTimeMillis() - n));
+    System.out.println("time to generate ranges = " + (System.currentTimeMillis() - n) + "ms");
 
     // hello hello
     // {hello} {hello}

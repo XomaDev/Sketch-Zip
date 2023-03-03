@@ -38,6 +38,6 @@ public class Main {
                  new FileOutputStream(new File(FILES, "decoded.txt"))) {
       fos.write(decoded);
     }
-    assert Arrays.equals(encoded, decoded);
+    System.out.println(Arrays.equals(bytes, decoded));
   }
 }

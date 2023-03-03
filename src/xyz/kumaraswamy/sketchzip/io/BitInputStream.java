@@ -58,8 +58,10 @@ public class BitInputStream extends InputStream {
    */
 
   public int read() throws IOException {
-    int n = 0;
-    for (int i = 0; i < 8; i++) {
+    int n = readBit();
+    if (n == -1) // important
+      return n;
+    for (int i = 0; i < 7; i++) {
       int bit = readBit();
       if (bit == -1)
         break;
