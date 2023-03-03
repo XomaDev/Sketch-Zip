@@ -1,6 +1,5 @@
 package xyz.kumaraswamy.sketchzip.encoder;
 
-import xyz.kumaraswamy.sketchzip.structures.FrequencyQueue;
 import xyz.kumaraswamy.sketchzip.structures.Reference;
 import xyz.kumaraswamy.sketchzip.structures.SketchArray;
 import xyz.kumaraswamy.sketchzip.structures.SketchList;
@@ -31,6 +30,10 @@ public class Matcher {
       words.add(new SketchArray(maxAllocation));
     }
 
+    // TODO:
+    //  we must have to improve this technique, it takes a lot
+    //  of time to process, we must optimize it
+
     ArrayList<Reference> usedWords = new ArrayList<>(difference); // maximum allocation
 
     for (int i = 0; i < len; i++) {
@@ -46,10 +49,13 @@ public class Matcher {
         SketchArray word = words.get(j);
         int wordIndex = word.blockSearch(bytes, r, i);
         if (wordIndex != -1) {
-          Object[] aWord = new Object[offset - i];
+          // TODO:
+          //  try to optimize it
+          int lenDifference = offset - i;
+          Object[] aWord = new Object[lenDifference];
           for (int k = i, l = 0; k < offset; k++, l++)
             aWord[l] = bytes.get(k);
-          Reference ref = new Reference(aWord, i, offset);
+          Reference ref = new Reference(aWord, lenDifference, i, offset);
           if (!references.contains(ref))
             //  we need to first compare frequency of
             //  the larger word with the frequency of
