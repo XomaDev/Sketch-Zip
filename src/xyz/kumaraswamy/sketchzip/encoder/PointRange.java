@@ -64,10 +64,9 @@ public class PointRange {
         range.add(bytes[offset]);
 
       byte dictPoint = range.getPoint();
-      // For debug purpose,
       byte[] block = Arrays.copyOfRange(bytes, onset, offset);
 
-      blocks.add(new Block(block, dictPoint, onset, offset));
+      blocks.add(new Block(block, dictPoint));
       System.out.printf("Range %d:%d, dict_point: %d,\n", onset,
               offset, dictPoint);
       range = new PointRange();
