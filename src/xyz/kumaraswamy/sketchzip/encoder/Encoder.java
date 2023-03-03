@@ -45,7 +45,9 @@ public class Encoder {
     //  multiple dictionaries
     // 5hello3Zak
     PointRange range = new PointRange(bytes);
+    long n = System.currentTimeMillis();
     List<Block> blocks = range.generateRanges();
+    System.out.println("time to generate ranges = " + (System.currentTimeMillis() - n));
 
     // hello hello
     // {hello} {hello}
@@ -69,7 +71,6 @@ public class Encoder {
       contentSize += block.list.netSize();
 
     int allocateCap = 4 * 2 + rangeHeadersSize + dictionarySize + contentSize;
-
     huffmanStream.allocate(allocateCap);
 
     // sz[range headers length][dictionary length]{range headers}{dictionary}{content}
@@ -103,8 +104,7 @@ public class Encoder {
           short index = pointer.index();
 
           // writes dict index; short; 2 bytes
-          bitsStream.write(index >> 8);
-          bitsStream.write((byte) index);
+          bitsStream.writeShort16(index);
         } else bitsStream.write((byte) element);
     }
     // sz[range headers length][dictionary length]{range headers}{dictionary}{content}
@@ -115,44 +115,52 @@ public class Encoder {
   }
 
   private int encodeBlocks(List<Block> blocks) throws IOException {
-    SketchList net = new SketchList();
 
-    int netGain = 0;
+    int netGain = 0, totalSize = 0;
     for (Block block : blocks) {
       SketchList list = block.list;
-      netGain += encodeOccurrences(list, block.dictPoint);
-      for (Object element : list)
-        net.add(element);
+
+      int originalSize = list.netSize();
+      encodeOccurrences(list, block.dictPoint);
+
+      int compressedSize = list.netSize();
+
+      totalSize += compressedSize;
+      netGain += originalSize - compressedSize;
     }
+
+    SketchList net = new SketchList(totalSize);
+    for (Block block : blocks)
+      for (Object element : block.list)
+        net.add(element);
     return netGain;
   }
 
-  private int encodeOccurrences(SketchList list, byte dictPoint) throws IOException {
-    int originalSize = list.netSize();
-
+  private void encodeOccurrences(SketchList list, byte dictPoint) throws IOException {
     List<Reference> matches = Matcher.match(list,
             Pencil.MINIMUM_WORD_SIZE, Pencil.MAXIMUM_WORD_SIZE);
 
     for (Reference reference : matches) {
-      Object[] word = reference.bytes();
+      Object[] word = reference.bytes;
 
       int indexOf = list.findIndexOf(word);
-      if (indexOf != -1) {
-        int wordLen = reference.offset() - reference.onset();
+      if (indexOf == -1)
+        continue;
+      int wordLen = reference.lenDifference;
 
-        writeToDictionary(word, dictPoint);
-        if (index == Short.MAX_VALUE)
-          throw new RuntimeException("Integer Overflow");
-        Pointer pointer = new Pointer(index++, dictPoint);
-        int onset;
-        while ((onset = list.findIndexOf(word)) != -1) {
-          list.replace(onset, onset + wordLen, pointer);
-        }
-      }
+      writeToDictionary(word, dictPoint);
+      if (index == Short.MAX_VALUE)
+        throw new RuntimeException("Integer Overflow");
+
+      Pointer pointer = new Pointer(index++, dictPoint);
+      int onset = indexOf;
+
+      do {
+        list.replace(onset, onset + wordLen, pointer);
+      } while ((onset = list.findIndexOf(word)) != -1);
     }
     // [32 bit] dict length, {dictionary; 5;hello}
     // content
-    return originalSize - list.netSize();
   }
 
   private void writeToDictionary(Object[] word, byte dictPoint) throws IOException {
@@ -165,7 +173,7 @@ public class Encoder {
 
     if (length > 256)
       throw new IOException("Exceeded maximum dictionary capacity");
-    dictionary.write(length); // 7 bit int
+    dictionary.write(length); // this cannot be 0
     for (Object letter : word)
       if (letter instanceof Pointer pointer) {
         // total of 3 bytes
