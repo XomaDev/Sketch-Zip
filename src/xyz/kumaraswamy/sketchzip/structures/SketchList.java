@@ -29,7 +29,7 @@ public class SketchList implements Iterable<Object> {
   }
 
   private void resize() {
-    int newCap = length * 2;
+    int newCap = length * 3;
     Object[] allocation = new Object[newCap];
     if (index >= 0)
       System.arraycopy(elements, 0, allocation, 0, index);

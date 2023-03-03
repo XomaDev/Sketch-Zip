@@ -16,15 +16,15 @@ public class Main {
     // TODO:
     //  handle data in pure binaries
     System.out.println("Hello world!");
-    long initial = System.currentTimeMillis();
     byte[] bytes = Files.readAllBytes(new File(FILES, "hello.txt").toPath());
 
     ByteArrayOutputStream encodedStream = new ByteArrayOutputStream();
+    long initial = System.currentTimeMillis();
     SketchCode.encode(bytes, encodedStream);
+    System.out.println("encoded = " + (System.currentTimeMillis() - initial) + " ms");
 
     byte[] encoded = encodedStream.toByteArray();
     System.out.println("len = " + encoded.length);
-    System.out.println("encoded = " + (System.currentTimeMillis() - initial) + " ms");
     try (FileOutputStream fos =
                  new FileOutputStream(new File(FILES, "encoded.txt"))) {
       fos.write(encoded);
