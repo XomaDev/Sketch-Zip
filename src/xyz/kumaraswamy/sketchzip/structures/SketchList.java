@@ -10,8 +10,8 @@ public class SketchList implements Iterable<Object> {
 
   private int index = 0;
 
-  public SketchList() {
-    length = 500;
+  public SketchList(int length) {
+    this.length = length;
     elements = new Object[length];
   }
 
