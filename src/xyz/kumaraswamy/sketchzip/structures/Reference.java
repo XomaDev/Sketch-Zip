@@ -4,14 +4,18 @@ import java.util.Arrays;
 
 public final class Reference {
 
-  private final Object[] bytes;
-  private final int onset;
-  private final int offset;
+  public final Object[] bytes;
+
+  public final int lenDifference;
+
+  public final int onset;
+  public final int offset;
 
   public int frequency;
 
-  public Reference(Object[] bytes, int onset, int offset) {
+  public Reference(Object[] bytes, int lenDifference, int onset, int offset) {
     this.bytes = bytes;
+    this.lenDifference = lenDifference;
     this.onset = onset;
     this.offset = offset;
   }
@@ -35,18 +39,6 @@ public final class Reference {
   @Override
   public String toString() {
     return "<" + onset + ':' + offset + '>';
-  }
-
-  public Object[] bytes() {
-    return bytes;
-  }
-
-  public int onset() {
-    return onset;
-  }
-
-  public int offset() {
-    return offset;
   }
 
 
