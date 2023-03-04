@@ -36,26 +36,29 @@ public class Matcher {
 
     ArrayList<Reference> usedWords = new ArrayList<>(difference); // maximum allocation
 
-    for (int i = 0; i < len; i++) {
-      int minOffset = i + minWordSize;
+    difference--;
+    for (int i = 0, minOffset = minWordSize;
+         i < len;
+         i++, minOffset++) {
       usedWords.clear();
       // a rotation
-      for (int j = difference - 1, r = maxWordSize;
+      // [kumaraswamy, kumaraswamy]
+
+      for (int j = difference, wSize = maxWordSize;
            j >= 0;
-           j--, r--) {
-        int offset = i + r;
+           j--, wSize--) {
+        int offset = i + wSize;
         if (offset > len)
           continue;
         SketchArray word = words.get(j);
-        int wordIndex = word.blockSearch(bytes, r, i);
+        int wordIndex = word.blockSearch(bytes, wSize, i);
         if (wordIndex != -1) {
           // TODO:
           //  try to optimize it
-          int lenDifference = offset - i;
-          Object[] aWord = new Object[lenDifference];
+          Object[] aWord = new Object[wSize];
           for (int k = i, l = 0; k < offset; k++, l++)
             aWord[l] = bytes.get(k);
-          Reference ref = new Reference(aWord, lenDifference, i, offset);
+          Reference ref = new Reference(aWord, wSize, i, offset);
           if (!references.contains(ref))
             //  we need to first compare frequency of
             //  the larger word with the frequency of

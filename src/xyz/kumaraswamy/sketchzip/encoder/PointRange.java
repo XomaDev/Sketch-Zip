@@ -63,7 +63,11 @@ public class PointRange {
            offset++)
         range.add(bytes[offset]);
 
+      // this is an 8 bit pointer
+      // we can maybe reduce them to lesser
+      // bits
       byte dictPoint = range.getPoint();
+
       byte[] block = offset == len
               ? bytes
               : Arrays.copyOfRange(bytes, onset, offset);

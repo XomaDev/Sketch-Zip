@@ -115,7 +115,6 @@ public class Encoder {
   }
 
   private int encodeBlocks(List<Block> blocks) throws IOException {
-
     int netGain = 0, totalSize = 0;
     for (Block block : blocks) {
       SketchList list = block.list;
@@ -180,9 +179,7 @@ public class Encoder {
 
         dictionary.write(dictPoint);
 
-        short index = pointer.index();
-        // 16 bit index
-        dictionary.writeShort16(index);
+        dictionary.writeShort16(pointer.index());
       } else dictionary.write((byte) letter);
   }
 
