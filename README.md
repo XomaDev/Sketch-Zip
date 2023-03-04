@@ -26,7 +26,7 @@ The table shows the compression ratios achieved by three different algorithms fo
 
 | Algorithm            | Input Size | Output Size | Compression Ratio |
 |----------------------|------------|-------------|-------------------|
-| Sketch Zip Algorithm | 25.5 kb    | 12.7 kB     | 50.2%             |
+| Sketch Zip Algorithm | 25.3 kb    | 12.7 kB     | 52%               |
 | 7zip Algorithm       | 25.5 kb    | 7.3 KB      | 71.4%             |
 | Xz Algorithm         | 25.5 kb    | 7.3 kB      | 71.4%             |
 
